@@ -8,6 +8,8 @@
 #ifndef dict_h_included
 #define dict_h_included
 
+static char dict_sccsid[] = "%W% %G%";
+
 #ifndef TRUE
 #define TRUE    1
 #define FALSE   0

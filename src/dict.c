@@ -11,6 +11,8 @@
 **
 ******************/
 
+static char sccsid[] = "%W% %G%";
+
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>

@@ -8,6 +8,8 @@
  *
  */
 
+static char sccsid[] = "%W% %G%";
+
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>

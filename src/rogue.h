@@ -7,6 +7,8 @@
  *
  */
 
+static char rogue_h_sccsid[] = "%W% %G%";
+
 #include <signal.h>
 #include <stdio.h>
 #include <stdarg.h>

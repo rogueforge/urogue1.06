@@ -5,6 +5,8 @@
 #ifndef dictutil_h_included
 #define dictutil_h_included
 
+static char dictutil_sccsid[] = "%W% %G%";
+
 #include <stdio.h>
 #include "dict.h"
 

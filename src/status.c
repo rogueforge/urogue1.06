@@ -9,6 +9,8 @@
  * understanding the code.
  */
 
+static char sccsid[] = "%W% %G%";
+
 #include "rogue.h"
 /*
  * has_defensive_spell() has monster cast a defensive spell. Any flags added

@@ -4,6 +4,8 @@
 #include "dict.h"
 #include "memory.h"
 
+static char sccsid[] = "%W%\t%G%";
+
 /*	Debugging memory allocation code that tries to trap common memory problems
 	like overwriting storage and stepping on memory pointer chains. If code
 	doesn't use malloc, free, and realloc a lot, these routines can be left in

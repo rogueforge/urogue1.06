@@ -2,6 +2,8 @@
 **   Utilities for Dictionary Maintenence Functions
 *************************************************************************/
 
+static char sccsid[] = "%W% %G%";
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>

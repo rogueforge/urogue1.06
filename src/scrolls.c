@@ -2,6 +2,8 @@
  * Last Modified: Aug 3, 1995
  */
 
+static char sccsid[] = "%W% %G%";
+
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>

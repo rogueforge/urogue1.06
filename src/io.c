@@ -6,6 +6,8 @@
  * Various input/output functions
  */
 
+static char sccsid[] = "%W% %G%";
+
 #include <string.h>
 #include <ctype.h>
 #include <stdarg.h>

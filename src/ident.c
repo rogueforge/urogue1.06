@@ -16,6 +16,8 @@
  * easily be detected.
  */
 
+static char sccsid[] = "%W% %G%";
+
 #include "rogue.h"
 /*
  * Index of 0 is invalid (unused state) 

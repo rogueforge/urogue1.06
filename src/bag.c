@@ -11,6 +11,8 @@
  * should access the bag only through the functions presented here.
  */
 
+static char sccsid[] = "%W% %G%";
+
 #include <stdlib.h>
 #include "rogue.h"
 

@@ -1,3 +1,5 @@
+%W% %G%
+
 add_pack() calls ur_free() on the linked list pointer passed
 to it. Need to go through code and look for cases where we
 use that pointer after calling add_pack(). Electric
@@ -8,4 +10,4 @@ there will be more like this...
 
 Bug in genocide scroll: don't request list, type letter, etc...
 
-
+Implement potion of true sight.

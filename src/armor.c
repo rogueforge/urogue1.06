@@ -6,6 +6,8 @@
  * This file contains misc functions for dealing with armor
  */
 
+static char sccsid[] = "%W% %G%";
+
 #include "rogue.h"
 
 /*

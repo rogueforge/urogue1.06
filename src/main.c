@@ -10,6 +10,8 @@
  *
  */
 
+static char sccsid[] = "%W% %G%";
+
 
 #include <time.h>
 #include <stdlib.h>

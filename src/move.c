@@ -7,6 +7,8 @@
  *
  */
 
+static char sccsid[] = "%W% %G%";
+
 #include <stdlib.h>
 #include <ctype.h>
 #include "rogue.h"
