@@ -1808,4 +1808,7 @@
 1.06, Sep 18, 95
 1)	the trading post gives back what is not bought
 
+1.06, Sep 29, 95
+1)	ring names are given back with mem_free()
+
 -------	End of File ------
