@@ -1,38 +1,38 @@
-COMPFLAGS     =
+# SCCSID @(#)Makefile	1.1 8/16/95
 
-CFLAGS	      = $(COMPFLAGS)
-PFLAGS	      = $(COMPFLAGS)
-FFLAGS	      = $(COMPFLAGS)
-CCFLAGS       = $(COMPFLAGS)
-CXXFLAGS      = $(COMPFLAGS)
+COMPFLAGS	  =
 
-DEST	      = /usr/games
+CFLAGS		  = $(COMPFLAGS)
+PFLAGS		  = $(COMPFLAGS)
+FFLAGS		  = $(COMPFLAGS)
+CCFLAGS 	  = $(COMPFLAGS)
+CXXFLAGS	  = $(COMPFLAGS)
+
+DEST		  = /usr/games
 
 # Uncomment this if you want system header files to be expanded
 #
-# SYSHDRS       =
+SYSHDRS 	  =
 
-EXTHDRS	      =
+EXTHDRS 	  =
 
-HDRS	      = dict.h \
-		dictutil.h \
-		rogue.h
+HDRS		  = dict.h dictutil.h rogue.h
 
-INSTALL	      = install
+INSTALL 	  = install
 
-LD	      = cc
+LD		  = cc
 
-LDFLAGS	      = $(COMPFLAGS)
+LDFLAGS 	  = $(COMPFLAGS)
 
-LIBS	      = -lcurses
+LIBS		  = -lcurses
 
-LINTLIBS      =
+LINTLIBS	  =
 
-LINTFLAGS     = -u $(CFLAGS)
+LINTFLAGS	  = -Nn10000 $(CFLAGS)
 
-MAKEFILE      = Makefile
+MAKEFILE	  = Makefile
 
-OBJS	      = armor.o \
+OBJS		  = armor.o \
 		artifact.o \
 		bag.o \
 		chase.o \
@@ -77,19 +77,9 @@ OBJS	      = armor.o \
 		weapons.o \
 		wizard.o
 
-PRINT	      = pr
+PROGRAM 	  = ur
 
-PRINTFLAGS    =
-
-LP	      = lp
-
-LPFLAGS       = 
-
-PROGRAM       = a.out
-
-SHELL	      = /bin/sh
-
-SRCS	      = armor.c \
+SRCS		  = armor.c \
 		artifact.c \
 		bag.c \
 		chase.c \
@@ -136,40 +126,27 @@ SRCS	      = armor.c \
 
 all:		$(PROGRAM)
 
-$(PROGRAM):     $(OBJS) $(LIBS) $(MAKEFILE)
-		@echo "Linking $(PROGRAM) ..."
-		@$(LD) $(LDFLAGS) $(OBJS) $(LIBS) -o $(PROGRAM)
+$(PROGRAM):	$(OBJS) $(LIBS) $(MAKEFILE)
+		$(LD) $(LDFLAGS) $(OBJS) $(LIBS) -o $(PROGRAM)
 		@echo "done"
 
-clean:;		@rm -f $(OBJS) core
-
-clobber:;	@rm -f $(OBJS) $(PROGRAM) core tags
-
-depend:;	@mkmf -f $(MAKEFILE) ROOT=$(ROOT)
-
-echo:;		@echo $(HDRS) $(SRCS)
-
--1:;		@ctags -wx $(HDRS) $(SRCS)
-
-install:	$(PROGRAM)
-		@echo Installing $(PROGRAM) in $(DEST)
-		@-strip $(PROGRAM)
-		@if [ $(DEST) != . ]; then \
-		(rm -f $(DEST)/$(PROGRAM); $(INSTALL) -d $(DEST); $(INSTALL) $(PROGRAM) $(DEST)); fi
+clean:		
+		@rm -f $(OBJS) $(PROGRAM) core
 
 lint:		$(LINTLIBS) $(SRCS) $(HDRS) $(EXTHDRS)
 		lint $(LINTFLAGS) $(LINTLIBS) $(SRCS)
 
-print:;		@$(PRINT) $(PRINTFLAGS) $(HDRS) $(SRCS) | $(LP) $(LPFLAGS)
+tags:		$(HDRS) $(SRCS); @ctags $(HDRS) $(SRCS)
 
-tags:           $(HDRS) $(SRCS); @ctags $(HDRS) $(SRCS)
+sccsget:
+		sccs get $(HDRS) $(SRCS) ToDo License.Txt History.Txt
 
-update:		$(DEST)/$(PROGRAM)
+sccsedit:
+		sccs edit $(HDRS) $(SRCS) ToDo License.Txt History.Txt
 
-touch:;		@touch $(SRCS) $(HDRS)
+sccsdelta:
+		sccs delta $(HDRS) $(SRCS) ToDo License.Txt History.Txt
 
-$(DEST)/$(PROGRAM): $(SRCS) $(LIBS) $(HDRS) $(EXTHDRS)
-		@$(MAKE) -f $(MAKEFILE) ROOT=$(ROOT) DEST=$(DEST) install
 ###
 armor.o: rogue.h
 artifact.o: rogue.h
@@ -186,7 +163,7 @@ getplay.o: rogue.h
 ident.o: rogue.h
 init.o: rogue.h
 io.o: rogue.h
-list.o: rogue.h
+list.o: rogue.h 
 magic.o: rogue.h
 main.o: rogue.h
 maze.o: rogue.h

@@ -1794,4 +1794,7 @@
 1.06, Aug 13, 95
 1)	monsters pick up the whole stack they walk onto
 
+1.06, Aug 16, 95
+1)	the program is ur, and the Makefile has sccs targets
+
 -------	End of File ------
