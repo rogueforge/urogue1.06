@@ -77,16 +77,15 @@ new_level(LEVTYPE ltype)
             break;
 
         case POSTLEV:
+            do_post();
+            levtype = ltype = NORMLEV;
+            level++;
+
         default:
-            if (going_down && (level == 0 || (level % 15) == 0))
-            {
-                do_post();
-                level++;
-                levtype = ltype = NORMLEV;
-            }
             do_rooms(); /* Draw rooms */
 
             do_passages();  /* Draw passages */
+            break;
     }
 
     /* Place the staircase down. */
