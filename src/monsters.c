@@ -1,5 +1,5 @@
 /*
- * Last Modified: 08/03/95
+ * Last Modified: 11/14/95
  */
 
 /*
@@ -89,11 +89,10 @@ struct linked_list *summon_monster(short type, int familiar, int print_message)
 			;	/* find last item in list */
 
 		    item->l_next = fpack;
-		    debug("summon_monster: l_prev = %p\n", item);
 		    fpack->l_prev = item;
 		}
 	    }
-	    fp->t_pack = NULL;
+	    fpack = NULL;
 	    killed(NULL, fam_ptr, NOMESSAGE, NOPOINTS);
 	}
 	fam_ptr = mp;
