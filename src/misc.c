@@ -578,7 +578,6 @@ aggravate(void)
     {
         tp = THINGPTR(mi);
         chase_it(&tp->t_pos, &player);
-        turn_off(*tp, ISFRIENDLY);
     }
 }
 

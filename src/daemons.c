@@ -716,6 +716,7 @@ unsummon(fuse_arg *monny)
 
     turn_off(*tp, WASSUMMONED);
     turn_off(player, HASSUMMONED);
+    msg("Goodbye, master.");
     msg("The summoned %s phases out of existence", mname);
     killed(NULL, sum_monst, NOMESSAGE, NOPOINTS);
     mons_summoned--;

@@ -839,6 +839,8 @@ init_flags(void)
         case C_ILLUSION:
         case C_CLERIC:
         case C_DRUID:
+        case C_RANGER:
+        case C_PALADIN:
             turn_on(player, CANSUMMON);
             break;
 

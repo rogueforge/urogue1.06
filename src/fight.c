@@ -1140,8 +1140,9 @@ int
 mon_mon_attack(struct thing *attacker, struct linked_list *mon, struct object *weapon, int thrown)
 {
     struct thing *attackee = THINGPTR(mon);
-    int           did_hit  = FALSE;
-    int           visible  = cansee(attackee->t_pos.y, attackee->t_pos.x);
+    int           did_hit;
+    int           ee_visible = cansee(attackee->t_pos.y, attackee->t_pos.x);
+    int           er_visible = cansee(attacker->t_pos.y, attacker->t_pos.x);
     char         *mname1   = monsters[attacker->t_index].m_name;
     char         *mname2   = monsters[attackee->t_index].m_name;
 
@@ -1149,8 +1150,17 @@ mon_mon_attack(struct thing *attacker, struct linked_list *mon, struct object *w
 
     if (attacker->t_index == attackee->t_index)
     {
-        if (attacker == THINGPTR(fam_ptr) && visible)
-            msg("Master, I cannot hit one of my brethen.");
+        if (attacker == THINGPTR(fam_ptr) && er_visible)
+            msg("Master, I cannot hit one of my brethren.");
+
+        if (!thrown && rnd(30 - attacker->t_stats.s_charisma) + luck <= 0)
+        {
+            if (er_visible)
+                msg("Your %s has made a new ally.", mname1);
+
+            turn_on(*attackee, ISCHARMED);
+        }
+
 
         return(FALSE);
     }
@@ -1165,13 +1175,13 @@ mon_mon_attack(struct thing *attacker, struct linked_list *mon, struct object *w
     {
         did_hit = TRUE;
 
-        if (visible && on(*attackee, CANSURPRISE))
+        if (ee_visible && on(*attackee, CANSURPRISE))
             turn_off(*attackee, CANSURPRISE);
 
-        if (visible && weapon != NULL)
+        if (ee_visible && er_visible && weapon != NULL)
             msg("The %s's %s hits the %s.", mname1,
                 weaps[weapon->o_which].w_name, mname2);
-        else if (visible)
+        else if (ee_visible && er_visible)
             msg("The %s hits the %s.", mname1, mname2);
 
         if (attackee->t_stats.s_hpt <= 0)
@@ -1181,11 +1191,20 @@ mon_mon_attack(struct thing *attacker, struct linked_list *mon, struct object *w
             return(TRUE);
         }
     }
-    else if (visible && weapon != NULL)
-        msg("The %s's %s misses the %s.", mname1,
-            weaps[weapon->o_which].w_name, mname2);
-    else if (visible)
-        msg("The %s misses the %s.", mname1, mname2);
+
+    else
+    {
+        did_hit = FALSE;
+
+        if (ee_visible && er_visible && weapon != NULL)
+            msg("The %s's %s misses the %s.", mname1,
+                weaps[weapon->o_which].w_name, mname2);
+        else if (ee_visible && er_visible)
+            msg("The %s misses the %s.", mname1, mname2);
+    }
+
+    if (er_visible && !ee_visible)
+        msg("The %s struggles with something.", mname1);
 
     if (off(*attackee, ISMEAN) && off(*attackee, ISFAMILIAR))
         turn_on(*attackee, ISRUN);

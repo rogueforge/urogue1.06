@@ -35,6 +35,15 @@ summon_monster(short type, int familiar, int print_message)
         int ndice = min(pstats.s_lvl, (nummonst - NUMSUMMON) / 8);
 
         monster = min(nummonst, roll(ndice, pstats.s_charisma));
+
+        /* if a familiar exists, and it is higher in level, make it again */
+
+        if (fam_ptr != NULL)
+        {
+            struct thing *fp = THINGPTR(fam_ptr);
+
+            monster = max(fp->t_index, monster);
+        }
     }
     else
         monster = type;
@@ -70,9 +79,9 @@ summon_monster(short type, int familiar, int print_message)
         int i;
         static const unsigned long fam_on[]= {ISREGEN,CANSHOOT,CANWIELD,HASARMOR,ISFAMILIAR,0};
         static const unsigned long fam_off[]={ISMEAN, ISHUH, ISINVIS,
-                    CANINWALL, CANSURPRISE, NOMOVE,
+                    CANSURPRISE, NOMOVE, ISSLOW,
                     ISSHADOW, ISGREED, ISFAST,
-                    CANFLY, 0};
+                    CANFLY, ISFLEE, 0};
 
         for (i = 0; fam_on[i]; i++)
             turn_on(*tp, fam_on[i]);
@@ -114,10 +123,17 @@ summon_monster(short type, int familiar, int print_message)
         tp->t_stats.s_lvl += roll(2, (pstats.s_lvl / 4) + 1);
         tp->t_stats.s_arm -= roll(2, (pstats.s_lvl / 4) + 1);
         tp->t_stats.s_str += roll(2, (pstats.s_lvl / 4) + 1);
+        tp->t_stats.s_intel += roll(2, (pstats.s_lvl / 4) + 1);
         tp->t_stats.s_wisdom += roll(2, (pstats.s_lvl / 4) + 1);
         tp->t_stats.s_dext += roll(2, (pstats.s_lvl / 4) + 1);
         tp->t_stats.s_const += roll(2, (pstats.s_lvl / 4) + 1);
         tp->t_stats.s_charisma += roll(2, (pstats.s_lvl / 4) + 1);
+
+        /* some monsters do no damage by default */
+
+        if (strcmp(tp->t_stats.s_dmg, "0d0") == 0)
+            tp->t_stats.s_dmg = "1d8";
+
         tp->maxstats = tp->t_stats; /* structure assignment */
     }
 
