@@ -1,5 +1,5 @@
 /*
- * Last Modified: Aug 3, 1995
+ * Last Modified: Jul 14, 1997
  */
 
 /*
@@ -138,6 +138,7 @@ void do_motion(struct object *obj, int ydelta, int xdelta, struct thing *tp)
 	    if (cansee(obj->o_pos.y, obj->o_pos.x) &&
 		mvwinch(cw, obj->o_pos.y, obj->o_pos.x) != ' ') {
 		mvwaddch(cw, obj->o_pos.y, obj->o_pos.x, (char) obj->o_type);
+		touchwin(cw);
 		wrefresh(cw);
 	    }
 	    continue;

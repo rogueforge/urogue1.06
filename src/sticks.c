@@ -1,5 +1,5 @@
 /*
- * Last Modified: Aug 3, 1995
+ * Last Modified: Jul 14, 1997
  */
 
 /*
@@ -832,6 +832,7 @@ void do_zap(struct thing *zapper, int which, unsigned long flags)
 			ntraps + 1 < 2 * MAXTRAPS &&
 			mvwinch(cw, ob->o_pos.y, ob->o_pos.x) != ' ') {
 			mvwaddch(cw, ob->o_pos.y, ob->o_pos.x, (char) TRAPDOOR);
+			touchwin(cw);
 			wrefresh(cw);
 		    }
 		    if (isatrap(ch)) {
@@ -1284,6 +1285,7 @@ void shoot_bolt(struct thing *shooter, coord start, coord dir, int get_points,
 		}
 	    }
 	    mvwaddch(cw, pos.y, pos.x, dirch);
+	    touchwin(cw);
 	    wrefresh(cw);
 	}
 	pos.y += dir.y;

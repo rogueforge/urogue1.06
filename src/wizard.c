@@ -1,5 +1,5 @@
 /*
- * Last Modified: Aug 3, 1995
+ * Last Modified: Jul 14, 1997
  */
 
 /*
@@ -77,6 +77,7 @@ void teleport(void)
     if (is_wearing(R_TELCONTROL)) {
 	msg("Where do you wish to teleport to? (* for help)");
 	wmove(cw, hero.y, hero.x);
+	touchwin(cw);
 	wrefresh(cw);
 	which = (short) (getchar() & 0177);
 	while (which != (short) ESCAPE && which != (short) LINEFEED && which != (short) CARRIAGE_RETURN) {
@@ -119,6 +120,7 @@ void teleport(void)
 	    c.x = max(c.x, 1);
 	    c.x = min(c.x, COLS - 1);
 	    wmove(cw, c.y, c.x);
+	    touchwin(cw);
 	    wrefresh(cw);
 	    which = (short) (getchar() & 0177);
 	}

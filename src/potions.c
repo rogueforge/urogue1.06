@@ -1,5 +1,5 @@
 /*
- * Last Modified: Aug 3, 1995
+ * Last Modified: Jul 14, 1997
  */
 
 /*
@@ -257,6 +257,7 @@ quaff(struct thing * quaffer, int            which,
 	    }
 	    waddstr(cw, morestr);
 	    overlay(hw, cw);
+	    touchwin(cw);
 	    wrefresh(cw);
 	    wait_for(' ');
 	    msg("");
@@ -264,6 +265,7 @@ quaff(struct thing * quaffer, int            which,
 	    msg("You begin to sense the presence of monsters.");
 	    waddstr(cw, morestr);
 	    overlay(mw, cw);
+	    touchwin(cw);
 	    wrefresh(cw);
 	    wait_for(' ');
 	    msg("");
@@ -303,6 +305,7 @@ quaff(struct thing * quaffer, int            which,
 	    waddstr(cw, morestr);
 
 	    overlay(hw, cw);
+	    touchwin(cw);
 	    wrefresh(cw);
 	    wait_for(' ');
 	    msg("");
@@ -358,6 +361,7 @@ quaff(struct thing * quaffer, int            which,
 
 		waddstr(cw, morestr);
 		overlay(hw, cw);
+		touchwin(cw);
 		wrefresh(cw);
 		wait_for(' ');
 		msg("");

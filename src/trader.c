@@ -1,5 +1,5 @@
 /*
- * Last Modified: Sep 18, 1995
+ * Last Modified: Jul 14, 1997
  */
 
 /*
@@ -55,6 +55,7 @@ void do_post(void)
 	switch (readchar()) {
 	case 'b':
 	    mvwaddstr(hw, 7, 0, "Lets go into the buying section of the store...");
+	    wclrtoeol(hw);
 	    touchwin(hw);
 	    wrefresh(hw);
 	    buy_it('\0', ISNORMAL);
@@ -62,6 +63,7 @@ void do_post(void)
 
 	case 's':
 	    mvwaddstr(hw, 7, 0, "Lets go into the selling section of the store...");
+	    wclrtoeol(hw);
 	    touchwin(hw);
 	    wrefresh(hw);
 	    sell_it();
@@ -115,6 +117,7 @@ buy_more:
 		mvwaddstr(hw, 19, 0, ", Artifact");
 
 	    mvwaddstr(hw, 9, 0, "What type of item do you want? ");
+	    wclrtobot(hw);
 	    touchwin(hw);
 	    wrefresh(hw);
 	    itemtype = readchar();
@@ -177,6 +180,7 @@ buy_more:
 	    wstandout(hw);
 	    mvwaddstr(hw, 10, 0, "We don't stock any of those.");
 	    wstandend(hw);
+	    wclrtoeol(hw);
 	    itemtype = '\0';
 	    continue;
 	}
@@ -192,6 +196,7 @@ buy_more:
 		things[which_type].mi_name);
 
 	mvwaddstr(hw, 9, 0, buf);
+	wclrtoeol(hw);
 	touchwin(hw);
 	wrefresh(hw);
 	buf[0] = '\0';
@@ -326,6 +331,7 @@ buy_more:
 	do {
 	    mvwaddstr(hw, 10, 0, "Do you want the cursed, blessed, or normal"
 		      " version? (c, b, n) [n]");
+	    wclrtoeol(hw);
 	    touchwin(hw);
 	    wrefresh(hw);
 
@@ -355,6 +361,7 @@ buy_more:
 		mvwaddstr(hw, 11, 0, "Type 'c' for cursed, 'b' for blessed, "
 			  "or 'n' for normal");
 		wstandend(hw);
+		wclrtoeol(hw);
 	    }
 	}
 	while (plus_or_minus == -100);
@@ -489,6 +496,7 @@ void sell_it(void)
 
     describe_it(obj);
     mvwaddstr(hw, 12, 0, "Do you want to sell it? [n] ");
+    wclrtoeol(hw);
     touchwin(hw);
     wrefresh(hw);
 
@@ -512,6 +520,7 @@ void sell_it(void)
     sprintf(buf, "Sold %s.  Hit space to continue.", inv_name(obj, LOWERCASE));
 
     mvwaddstr(hw, 13, 0, buf);
+    wclrtoeol(hw);
     touchwin(hw);
     wrefresh(hw);
     wait_for(' ');
@@ -705,4 +714,5 @@ void trans_line(void)
 	sprintf(buf, "You have infinite transactions remaining.");
 
     mvwaddstr(hw, LINES - 2, 0, buf);
+    wclrtoeol(hw);
 }

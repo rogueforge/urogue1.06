@@ -1,5 +1,5 @@
 /*
- * Last Modified: Oct 11, 1995
+ * Last Modified: Jul 14, 1997
  */
 
 /*
@@ -517,6 +517,7 @@ void light(coord *cp)
 		mvwaddch(cw, y, x, ch);
 	    }
 	}
+	touchwin(cw);
     }
 }
 

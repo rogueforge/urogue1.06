@@ -1,5 +1,5 @@
 /*
- * Last Modified: Oct 17, 1995
+ * Last Modified: Jul 14, 1997
  */
 
 /*
@@ -65,9 +65,8 @@ command(void)
 	status(FALSE);
 
 	wmove(cw, hero.y, hero.x);
-
-	if (!((running || count) && jump))
-	    wrefresh(cw);	/* Draw screen */
+	touchwin(cw);
+	wrefresh(cw);	/* Draw screen */
 
 	take = 0;
 	after = TRUE;
@@ -1055,6 +1054,7 @@ help(void)
     wclrtoeol(cw);
     status(FALSE);
     touchwin(cw);
+    wrefresh(cw);
 
     return;
 }

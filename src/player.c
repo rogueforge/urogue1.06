@@ -1,5 +1,5 @@
 /*
- * Last Modified: Aug 3, 1995
+ * Last Modified: Jul 14, 1997
  */
 
 /*
@@ -426,6 +426,7 @@ undead_sense(void)
     if (showit) {
 	msg("You feel the presense of the ungodly.");
 	overlay(hw, cw);
+	touchwin(cw);
 	wrefresh(cw);
 	wclear(hw);
     }

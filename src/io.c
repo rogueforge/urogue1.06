@@ -1,5 +1,5 @@
 /*
- * Last Modified: Jul 21, 1995
+ * Last Modified: Jul 14, 1997
  */
 
 /*
@@ -100,6 +100,7 @@ void endmsg(void)
     mpos = newpos;
     newpos = 0;
 
+    touchwin(cw);
     wrefresh(cw);
 }
 
@@ -171,8 +172,10 @@ void status(int display)
     wclrtoeol(cw);
     wmove(cw, oy, ox);
 
-    if (display)
+    if (display) {
+	touchwin(cw);
 	wrefresh(cw);
+    }
 }
 
 /*
@@ -204,6 +207,7 @@ void show_win(WINDOW *scr, const char *message)
     wait_for(' ');
     clearok(cw, TRUE);
     touchwin(cw);
+    wrefresh(cw);
 }
 
 /*

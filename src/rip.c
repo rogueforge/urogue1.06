@@ -1,5 +1,5 @@
 /*
- * Last Modified: Sep 15, 1995
+ * Last Modified: Jul 14, 1997
  */
 
 /*
@@ -119,6 +119,7 @@ void death(int monst)
 	if (die) {
 	    wmove(cw, mpos, 0);
 	    waddstr(cw, morestr);
+	    touchwin(cw);
 	    wrefresh(cw);
 	    wait_for(' ');
 	} else
