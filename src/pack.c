@@ -225,7 +225,7 @@ add_pack(struct linked_list *item, int print_message)
 
         if (player.t_ctype == C_THIEF)
         {
-            pstats.s_exp += obj->o_count / 2;
+            pstats.s_exp += obj->o_count / 4;
             check_level();
         }
 

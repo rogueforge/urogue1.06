@@ -102,7 +102,7 @@ itemweight(struct object *wh)
     {
         case ARMOR:  /* -20% for each plus */
             ac = armors[wh->o_which].a_class - wh->o_ac;
-            weight = ((weight * 5) - (weight * ac)) / 5;
+            weight *= (10 - ac) / 10;
             break;
 
         case WEAPON:
@@ -111,7 +111,7 @@ itemweight(struct object *wh)
     }
 
     if (wh->o_flags & ISCURSED)
-        weight += weight / 5;   /* +20% for cursed */
+        weight += weight / 2;   /* +20% for cursed */
     else if (wh->o_flags & ISBLESSED)
         weight -= weight / 5;   /* -20% for blessed */
 
@@ -131,7 +131,7 @@ itemweight(struct object *wh)
 int
 playenc(void)
 {
-    int ret_val = (pstats.s_str - 8) * 50;
+    int ret_val = (pstats.s_str - 10) * 50;
 
     if (is_wearing(R_CARRYING))
         ret_val += ring_value(R_CARRYING) * 300;
@@ -148,7 +148,7 @@ playenc(void)
 int
 totalenc(void)
 {
-    int wtotal = 1500 + playenc();
+    int wtotal = 1400 + playenc();
 
     switch (hungry_state)
     {
@@ -157,7 +157,7 @@ totalenc(void)
             break;
 
         case F_WEAK:
-            wtotal -= wtotal / 10;  /* 10% off weak */
+            wtotal -= wtotal / 4;  /* 10% off weak */
             break;
 
         case F_FAINT:

@@ -735,7 +735,7 @@ get_worth(struct object *obj)
         worth *= 3;
 
     if (blessed)        /* 50% more for blessed */
-        worth = 3 * worth / 2;
+        worth = 5 * worth / 2;
     else if (cursed)    /* half for cursed */
         worth /= 2;
 
@@ -746,7 +746,7 @@ get_worth(struct object *obj)
     else if (obj->o_flags & ISLOST)
         worth /= 3;
 
-    return(max(0, worth));
+    return(max(1, worth));
 }
 
 /*

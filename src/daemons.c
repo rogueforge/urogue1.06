@@ -48,7 +48,7 @@ doctor(daemon_arg *who)
     {
         case C_MAGICIAN:
         case C_ILLUSION:
-            turns_quiet = 24 - curp->s_lvl * 2;
+            turns_quiet = 24 - curp->s_lvl;
             new_points = curp->s_lvl / 2 - 4;
             break;
 
@@ -56,7 +56,7 @@ doctor(daemon_arg *who)
         case C_ASSASIN:
         case C_NINJA:
             turns_quiet = 16 - curp->s_lvl;
-            new_points = curp->s_lvl / 2 - 3;
+            new_points = curp->s_lvl / 2 - 1;
             break;
 
         case C_CLERIC:
@@ -69,7 +69,7 @@ doctor(daemon_arg *who)
         case C_RANGER:
         case C_PALADIN:
             turns_quiet = 8 - curp->s_lvl / 2;
-            new_points = curp->s_lvl / 2;
+            new_points = curp->s_lvl / 2 - 1;
             break;
 
         case C_MONSTER:
@@ -164,28 +164,28 @@ doctor_spell_points(struct thing *tp)
     {
         case C_MAGICIAN:
         case C_ILLUSION:
-            turns_quiet = 8 - curp->s_lvl / 2;
-            new_points = curp->s_lvl;
+            turns_quiet = 18 - curp->s_lvl / 2;
+            new_points = curp->s_lvl / 2;
             break;
         case C_CLERIC:
         case C_DRUID:
-            turns_quiet = 16 - curp->s_lvl;
-            new_points = curp->s_lvl - 2;
+            turns_quiet = 24 - curp->s_lvl;
+            new_points = curp->s_lvl / 2 - 2;
             break;
         case C_THIEF:
         case C_ASSASIN:
         case C_NINJA:
-            turns_quiet = 16 - curp->s_lvl;
-            new_points = curp->s_lvl - 3;
+            turns_quiet = 32 - curp->s_lvl;
+            new_points = curp->s_lvl / 3 - 3;
             break;
         case C_FIGHTER:
         case C_RANGER:
         case C_PALADIN:
-            turns_quiet = 24 - curp->s_lvl * 2;
-            new_points = curp->s_lvl / 2 - 4;
+            turns_quiet = 32 - curp->s_lvl;
+            new_points = curp->s_lvl / 3 - 4;
             break;
         case C_MONSTER:
-            turns_quiet = 16 - curp->s_lvl;
+            turns_quiet = 24 - curp->s_lvl;
             new_points = curp->s_lvl - 6;
             break;
         default:

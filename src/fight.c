@@ -19,16 +19,16 @@
 
 static long e_levels[10] =
 {
-    113L,           /* Fighter     */
-    142L,           /* Paladin     */
-    129L,           /* Ranger      */
-    87L,            /* Cleric      */
-    114L,           /* Druid       */
-    135L,           /* Magician    */
-    129L,           /* Illusionist */
-    72L,            /* Thief       */
-    86L,            /* Assasin     */
-    259L            /* Ninja       */
+    143L,           /* Fighter     */
+    182L,           /* Paladin     */
+    169L,           /* Ranger      */
+    127L,            /* Cleric      */
+    154L,           /* Druid       */
+    185L,           /* Magician    */
+    169L,           /* Illusionist */
+    112L,            /* Thief       */
+    126L,            /* Assasin     */
+    319L            /* Ninja       */
 };
 
 static struct matrix att_mat[11] =
@@ -1498,6 +1498,7 @@ roll_em(struct thing *att_er, struct thing *def_er, struct object *weap, int thr
                 (player.t_ctype == C_THIEF ||
                  player.t_ctype == C_NINJA ||
                  player.t_ctype == C_ASSASIN)
+                && off(player, ISBLIND)
                 && (wield_ok(&player, my_weapon, NOMESSAGE))
                 && (wear_ok(&player, cur_armor, NOMESSAGE)))
             {
