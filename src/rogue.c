@@ -1,5 +1,5 @@
 /*
- * Last Modified: Jan 5, 1991
+ * Last Modified: Jul 21, 1995
  */
 #include "rogue.h"
 /*
@@ -57,7 +57,7 @@ int picked_artifact = 0;
 int msg_index = 0;
 int luck = 0;
 int resurrect = 0;
-int inv_type = INV_OVER;		/* Overwrite style of inventory */
+int inv_type = INV_CLEAR;		/* Overwrite style of inventory */
 int fam_type = 0;			/* The type of familiar */
 int mons_summoned = 0;			/* Number of summoned monsters */
 char *lastfmt;
@@ -86,10 +86,10 @@ int running = FALSE;
 int fighting = FALSE; 
 int wizard = FALSE;
 int wiz_verbose = TRUE;
-int fight_flush = FALSE; 
+
 int terse = FALSE; 
 int door_stop = FALSE;
-int jump = FALSE; 
+int jump = TRUE; 
 int doorstop = TRUE;
 int firstmove = FALSE; 
 int askme = FALSE;
