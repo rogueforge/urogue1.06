@@ -140,7 +140,7 @@ randmonster(int wander, int grab)
 
     /* Do we want a merchant? */
 
-    if (wander == WANDER && monsters[nummonst].m_wander && rnd(100) < 3)
+    if (wander == WANDER && monsters[nummonst].m_wander && rnd(5000) < 3)
         return(nummonst);
 
     cur_level = level;
@@ -429,7 +429,7 @@ new_monster(struct linked_list *item, int type, coord *cp, int max_monster)
 
     if (on(*tp, CANWIELD))
     {
-        if (max_monster || rnd(2))
+        if (max_monster || rnd(3))
         {
             struct linked_list  *wield_item;
             struct object   *wielded;

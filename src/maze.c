@@ -55,7 +55,7 @@ do_maze(void)
 
     item = spec_item(GOLD, 0, 0, 0);
     obj  = OBJPTR(item);
-    obj->o_count *= (rnd(10) + 1);  /* add in one large hunk */
+    obj->o_count *= (rnd(10) + 5);  /* add in one large hunk */
     rnd_pos(rp, &tp);
     obj->o_pos = tp;
     add_obj(item, tp.y, tp.x);

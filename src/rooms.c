@@ -34,7 +34,7 @@ do_rooms(void)
 
     /* Put the gone rooms, if any, on the level */
 
-    left_out = rnd(4);
+    left_out = rnd(3);
 
     for (i = 0; i < left_out; i++)
         rooms[rnd_room()].r_flags |= ISGONE;
@@ -69,7 +69,7 @@ do_rooms(void)
             continue;
         }
 
-        if (rnd(80) < level - 15)
+        if (rnd(40) < level - 5)
             rp->r_flags |= ISDARK;
 
         /* Find a place and size for a random room */
@@ -89,7 +89,7 @@ do_rooms(void)
 
         /* Put the gold in */
 
-        if (rnd(100) < 50 && (!has_artifact || level >= max_level))
+        if (rnd(10) < 3 && (!has_artifact || level >= max_level))
         {
             struct linked_list *itm;
             struct object   *cur;

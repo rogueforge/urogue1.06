@@ -117,7 +117,7 @@ new_level(LEVTYPE ltype)
         {
             char    ch;
 
-            i = ntraps = min(MAXTRAPS, rnd(level / 4) + 1);
+            i = ntraps = min(MAXTRAPS, rnd(level / 2) + 1);
 
             /* maybe a lair */
 
@@ -392,7 +392,7 @@ put_things(LEVTYPE ltype)
      * Increasing chance after level 15
      */
 
-    if (ltype != MAZELEV && rnd(80) < level - 15)
+    if (ltype != MAZELEV && rnd(50) < level - 10)
     {
         int n, j;
         struct room *rp;

@@ -457,72 +457,63 @@ chase(struct thing *tp, coord *ee, int flee)
         } /* Or can it breathe acid? */
         else if (on(*tp, CANBACID))
         {
-            if (rnd(level / 20) == 0)
-                if (!(good_monster(*tp)))
+            if (!(good_monster(*tp)) && rnd(level / 15) == 0)
                     turn_off(*tp, CANBACID);
 
             breath = "acid";
         } /* Or can it breathe fire */
         else if (on(*tp, CANBFIRE))
         {
-            if (rnd(level / 20) == 0)
-                if (!(good_monster(*tp)))
+            if (!(good_monster(*tp)) && rnd(level / 15) == 0)
                     turn_off(*tp, CANBFIRE);
 
             breath = "flame";
         } /* Or can it breathe electricity? */
         else if (on(*tp, CANBBOLT))
         {
-            if (rnd(level / 20) == 0)
-                if (!(good_monster(*tp)))
+            if (!(good_monster(*tp)) && rnd(level / 15) == 0)
                     turn_off(*tp, CANBBOLT);
 
             breath = "lightning bolt";
         } /* Or can it breathe gas? */
         else if (on(*tp, CANBGAS))
         {
-            if (rnd(level / 20) == 0)
-                if (!(good_monster(*tp)))
+            if (!(good_monster(*tp)) && rnd(level / 15) == 0)
                     turn_off(*tp, CANBGAS);
 
             breath = "chlorine gas";
         } /* Or can it breathe ice? */
         else if (on(*tp, CANBICE))
         {
-            if (rnd(level / 20) == 0)
-                if (!(good_monster(*tp)))
+            if (!(good_monster(*tp)) && rnd(level / 15) == 0)
                     turn_off(*tp, CANBICE);
 
             breath = "ice";
         }
         else if (on(*tp, CANBPGAS))
         {
-            if (rnd(level / 20) == 0)
-                if (!(good_monster(*tp)))
+            if (!(good_monster(*tp)) && rnd(level / 15) == 0)
                     turn_off(*tp, CANBPGAS);
 
             breath = "nerve gas";
         }
         else if (on(*tp, CANBSGAS))
         {
-            if (rnd(level / 20) == 0)
-                if (!(good_monster(*tp)))
+            if (!(good_monster(*tp)) && rnd(level / 15) == 0)
                     turn_off(*tp, CANBSGAS);
 
             breath = "sleeping gas";
         }
         else if (on(*tp, CANBSLGAS))
         {
-            if (rnd(level / 20) == 0)
-                if (!(good_monster(*tp)))
+            if (!(good_monster(*tp)) && rnd(level / 15) == 0)
                     turn_off(*tp, CANBSLGAS);
 
             breath = "slow gas";
         }
         else
         {
-            if (rnd(level / 20) == 0)
-                if (!(good_monster(*tp)))
+            if (!(good_monster(*tp)) && rnd(level / 15) == 0)
                     turn_off(*tp, CANBFGAS);
 
             breath = "fear gas";
@@ -1212,7 +1203,7 @@ can_blink(struct thing *tp)
     if (off(*tp, CANBLINK) || (on(*tp, ISHELD)) ||
         on(*tp, ISFLEE) ||
         (on(*tp, ISSLOW) && off(*tp, ISHASTE) && !(tp->t_turn)) ||
-        (rnd(12) < 6))
+        (rnd(10) < 9))
         return (FALSE);
 
     /* Initialize the spots as illegal */

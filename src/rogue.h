@@ -19,15 +19,15 @@
 /* Maximum number of different things */
 #define MAXROOMS    9   /* max rooms per normal level */
 #define MAXDOORS    4   /* max doors to a room */
-#define MAXOBJ      8   /* max number of items to find on a level */
+#define MAXOBJ      6   /* max number of items to find on a level */
 #define MAXPACK     23  /* max number of seperate items to carry */
 #define MAXTREAS    30  /* max number monsters/treasure in treasure room */
-#define MAXTRAPS    50  /* max traps per level */
+#define MAXTRAPS    80  /* max traps per level */
 #define MAXTRPTRY   16  /* max attempts/level allowed for setting traps */
 #define MAXPURCH    8   /* max purchases per trading post visit */
 #define NUMMONST    (sizeof(monsters) / sizeof(struct monster) - 2)
 #define NUMSUMMON   48  /* number of creatures that can summon hero */
-#define NLEVMONS    4   /* number of new monsters per level */
+#define NLEVMONS    8   /* number of new monsters per level */
 #define LINELEN     80  /* characters in a buffer */
 
 /* The character types */
@@ -133,7 +133,7 @@
 #define SMELLTIME    20
 #define HEROTIME     20
 #define HEALTIME     30
-#define WANDERTIME   80
+#define WANDERTIME   140
 #define GONETIME    200
 #define PHASEDURATION   300
 #define SEEDURATION 850

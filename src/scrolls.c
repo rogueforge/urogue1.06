@@ -400,14 +400,14 @@ read_scroll(struct thing *reader, int which, int flags)
 
             if (cursed)
             {
-                level += 10 + rnd(10);
+                level += 5 + rnd(5);
                 new_level(NORMLEV);
                 mpos = 0;
                 msg("You are banished to the lower regions.");
             }
             else if (blessed)
             {
-                level -= rnd(4) + 1;
+                level -= rnd(3) + 1;
 
                 if (level < 1)
                     level = 1;
