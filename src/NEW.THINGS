@@ -1797,4 +1797,8 @@
 1.06, Aug 16, 95
 1)	the program is ur, and the Makefile has sccs targets
 
+1.06, Sep 1, 95
+1)	the source is kept under SCCS
+2)	summon familiar is no longer known from the start
+
 -------	End of File ------

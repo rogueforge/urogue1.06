@@ -1,5 +1,5 @@
 /*
- * Last Modified: Jul 21, 1995
+ * Last Modified: Sep 1, 1995
  */
 
 /*
@@ -53,7 +53,7 @@ static struct spells monst_spells[] =
 static struct spells player_spells[] =
 {
  {1, WS_KNOCK, ZAP_MAGIC | ISKNOW},
- {1, S_SUMFAMILIAR, SCR_MAGIC | ISKNOW | SP_DRUID | SP_MAGIC | SP_CLERIC | SP_ILLUSION},
+ {1, S_SUMFAMILIAR, SCR_MAGIC | SP_DRUID | SP_MAGIC | SP_CLERIC | SP_ILLUSION},
  {1, S_GFIND, SCR_MAGIC | ISKNOW},
  {1, P_MONSTDET, POT_MAGIC | ISKNOW | SP_DRUID},
  {1, P_TREASDET, POT_MAGIC | ISKNOW | SP_MAGIC},
