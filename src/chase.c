@@ -1,5 +1,5 @@
 /*
- * Last Modified: Jul 21, 1995
+ * Last Modified: Aug 13, 1995
  */
 
 /*
@@ -182,14 +182,23 @@ void do_chase(struct thing *th, int flee)
     /* If we have a scavenger, it can pick something up */
 
     if ((item = find_obj(th->t_nxtpos.y, th->t_nxtpos.x)) != NULL) {
-	struct object *obj = OBJPTR(item);
+	struct linked_list *node, *top = item;
+	struct object *obt;
 
-	if (on(*th, ISSCAVENGE) ||
-	    ((on(*th, CANWIELD) || on(*th, CANSHOOT)) && (obj->o_type == WEAPON || obj->o_type == ARMOR))
-	    || (on(*th, CANCAST) && is_magic(obj))) {
-	    rem_obj(item, FALSE);
-	    attach(th->t_pack, item);
+	while (top) {		 /* grab all objects that qualify */
+	    struct object *obj = OBJPTR(item);
+
+	    obt = OBJPTR(top);
+	    node = obt->next_obj;
+	    if (on(*th, ISSCAVENGE) ||
+		((on(*th, CANWIELD) || on(*th, CANSHOOT)) && (obj->o_type == WEAPON || obj->o_type == ARMOR))
+		|| (on(*th, CANCAST) && is_magic(obj))) {
+		rem_obj(top, FALSE);
+		attach(th->t_pack, top);
+	    }
+	    top = node;
 	}
+	light(&hero);
     }
 
     mvwaddch(cw, th->t_pos.y, th->t_pos.x, th->t_oldch);
