@@ -1,5 +1,5 @@
 /*
- * Last Modified: Jul 21, 1995
+ * Last Modified: Oct 17, 1995
  */
 
  /*
@@ -14,7 +14,6 @@ static char sccsid[] = "%W% %G%";
 
 
 #include <time.h>
-#include <stdlib.h>
 #include <string.h>
 #include <signal.h>
 #include <stdlib.h>
@@ -123,6 +122,9 @@ int main(int argc, char *argv[])
     else
 	printf("Hello %s, just a moment while I dig the dungeon...", whoami);
 
+    mem_debug(2);
+    mem_tracking(1);
+
     fflush(stdout);
 
     init_things();		/* Set up probabilities of things */
@@ -189,15 +191,14 @@ int main(int argc, char *argv[])
 
     fatal("");
 
-    return (0);
+    return(0);
 }
 
 /*
  * fatal() Exit the program, printing a message. 
  */
 
-void
-fatal(char           *s)
+void fatal(char *s)
 {
     clear();
     move(LINES - 2, 0);
@@ -205,7 +206,7 @@ fatal(char           *s)
     wrefresh(stdscr);
     endwin();
     printf("\n");		/* So the cursor doesn't stop at the end of the line */
-    exit(0);
+    exit(100);
 }
 
 /*

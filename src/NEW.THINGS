@@ -1819,4 +1819,8 @@
 2)	dictionary hashing by mask
 3)	familiar crash after a level change noted in ToDo
 
+1.06, Oct 17, 95
+1)	verify() reports a failed check with its file and line
+2)	memory tracking is on
+
 -------	End of File ------
