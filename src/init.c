@@ -1,5 +1,5 @@
 /*
- * Last Modified: Jul 21, 1995
+ * Last Modified: Dec 21, 1995
  */
 
 /*
@@ -79,7 +79,9 @@ static char *metal[] =
  "Aluminium", "Bone", "Brass", "Bronze",
  "Copper", "Chromium", "Iron", "Lead",
  "Magnesium", "Pewter", "Platinum", "Steel",
- "Tin", "Titanium", "Zinc"
+ "Tin", "Titanium", "Zinc", "Carbon",
+ "Plastic", "Glass", "Ice", "Chocolate",
+ "Gold", "Silver", "Invisible"
 };
 #define NMETAL (sizeof metal / sizeof (char *))
 
