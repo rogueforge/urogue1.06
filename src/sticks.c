@@ -1,5 +1,5 @@
 /*
- * Last Modified: Jul 21, 1995
+ * Last Modified: Aug 3, 1995
  */
 
 /*
@@ -130,7 +130,7 @@ void do_zap(struct thing *zapper, int which, unsigned long flags)
     }
 
     if (is_stick) {
-	if ((obj = get_object(pack, "zap with", STICK, bff_zappable)) == NULL)
+	if ((obj = get_object(pack, "zap with", 0, bff_zappable)) == NULL)
 	    return;
 
 	if (obj->o_type != STICK && !(obj->o_flags & ISZAPPED)) {
@@ -181,6 +181,8 @@ void do_zap(struct thing *zapper, int which, unsigned long flags)
 	}
     } else
 	got_one = FALSE;
+
+    debug("Zapping with %d", which);
 
     switch (which) {
     case WS_LIGHT:
