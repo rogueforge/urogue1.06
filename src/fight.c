@@ -1,5 +1,5 @@
 /*
- * Last Modified: Aug 3, 1995
+ * Last Modified: Nov 14, 1995
  */
 
 /*
@@ -913,7 +913,7 @@ int mon_mon_attack(struct thing *attacker, struct linked_list *mon, struct objec
     if (attacker->t_index == attackee->t_index) {
 	if (attacker == THINGPTR(fam_ptr) && er_visible)
 	    msg("Master, I cannot hit one of my brethren.");
-        if (!thrown && rnd(30 - attacker->t_stats.s_charisma) + luck <= 0) {
+        if (!thrown && rnd(100) - attacker->t_stats.s_charisma + luck < 0) {
 	    if (er_visible)
 		msg("Your %s has made a new ally.", mname1);
 	    turn_on(*attackee, ISCHARMED);
@@ -1021,17 +1021,16 @@ next_exp_level(int             print_message)
 
     return (level_jump);
 }
+
 /*
  * check_level() Check to see if the guy has gone up a level. 
  */
 
-void
-check_level(void)
+void check_level(void)
 {
-    int             num_jumped,
-                    j,
-                    add;
-    int             nsides;
+    int num_jumped, j, add;
+    int nsides;
+
     if ((num_jumped = next_exp_level(NOMESSAGE)) <= 0)
 	return;
 
@@ -1064,15 +1063,15 @@ check_level(void)
     /* Take care of multi-level jumps */
 
     for (add = 0, j = 0; j < num_jumped; j++) {
-	int             increase = roll(1, nsides) + const_bonus();
+	int increase = roll(1, nsides) + const_bonus();
+
 	add += max(1, increase);
     }
 
     max_stats.s_hpt += add;
     pstats.s_hpt += add;
 
-    msg("Welcome, %s, to level %d.",
-	cnames[player.t_ctype][min(pstats.s_lvl - 1, 14)], pstats.s_lvl);
+    msg("Welcome, %s, to level %d.", cnames[player.t_ctype][min(pstats.s_lvl - 1, 14)], pstats.s_lvl);
 
     next_exp_level(MESSAGE);
 
@@ -1081,7 +1080,8 @@ check_level(void)
     nsides = 16 - nsides;
 
     for (add = 0, j = 0; j < num_jumped; j++) {
-	int             increase = roll(1, nsides) + int_wis_bonus();
+	int increase = roll(1, nsides) + int_wis_bonus();
+
 	add += max(1, increase);
     }
 
@@ -1095,6 +1095,7 @@ check_level(void)
     if (on(player, HASFAMILIAR) && on(player, CANSUMMON))
 	summon_monster((short) 0, FAMILIAR, NOMESSAGE);
 }
+
 /*
  * roll_em() Roll several attacks 
  */
@@ -1392,7 +1393,7 @@ miss(char           *ee)
 	break;
     }
 
-    msg("You %s the %s", s, prname(ee));
+    msg("You %s the %s.", s, prname(ee));
 }
 /*
  * save_throw() See if a creature save against something 
@@ -1596,17 +1597,16 @@ m_bounce(struct object * weap, char          *mname)
     else
 	msg("The %s misses you.", prname(mname));
 }
+
 /*
  * remove_monster() remove a monster from the screen 
  */
-
-void
-remove_monster(coord * mp, struct linked_list * item)
+void remove_monster(coord *mp, struct linked_list *item)
 {
     struct thing   *tp = THINGPTR(item);
     char            ch = tp->t_oldch;
-    mvwaddch(mw, mp->y, mp->x, (char) ' ');
 
+    mvwaddch(mw, mp->y, mp->x, (char) ' ');
     if ((int) ch < 33 || ch == ' ')
 	ch = mvwinch(stdscr, mp->y, mp->x);
 
@@ -1616,6 +1616,7 @@ remove_monster(coord * mp, struct linked_list * item)
     detach(mlist, item);
     discard(item);
 }
+
 /*
  * is_magic() Returns true if an object radiates magic 
  */
@@ -1645,11 +1646,9 @@ is_magic(struct object * obj)
  */
 
 void
-killed(struct thing * killer, struct linked_list * item, int            print_message,
-                                                        int             give_points)
+killed(struct thing *killer, struct linked_list *item, int print_message, int give_points)
 {
-    struct linked_list *pitem,
-                   *nitem;
+    struct linked_list *pitem, *nitem;
     struct thing   *tp = THINGPTR(item);
     int             visible = cansee(tp->t_pos.y, tp->t_pos.x);
     int             is_player = (killer == (&player));
@@ -1675,13 +1674,15 @@ killed(struct thing * killer, struct linked_list * item, int            print_me
 	else
 	    msg("the %s.", monsters[tp->t_index].m_name);
     }
+
+    debug("Removing %s", monsters[tp->t_index].m_name);
+
     if (killer != NULL && item == fam_ptr) {	/* The player's familiar died */
 	turn_off(player, HASFAMILIAR);
 	fam_ptr = NULL;
 	msg("An incredible wave of sadness sweeps over you.");
-
-	/* There should be some penalty here... */
     }
+
     check_residue(tp);
 
     if (is_player) {

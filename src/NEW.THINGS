@@ -1826,4 +1826,8 @@
 1.06, Nov 2, 95
 1)	the Makefile builds verify.c
 
+1.06, Nov 14, 95
+1)	storage is checked on each new level
+2)	monsters join their kind by charisma
+
 -------	End of File ------
