@@ -1,5 +1,5 @@
 /*
- * Last Modified: Jul 21, 1995
+ * Last Modified: Aug 3, 1995
  */
 
 /*
@@ -1739,7 +1739,7 @@ killed(struct thing * killer, struct linked_list * item, int            print_me
 	if (killer == NULL)
 	    discard(pitem);
 	else
-	    fall(killer, pitem, FALSE);
+	    fall(killer, pitem, FALSE, FALSE);
     }
 
     remove_monster(&tp->t_pos, item);

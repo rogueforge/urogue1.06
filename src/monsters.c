@@ -1,5 +1,5 @@
 /*
- * Last Modified: 07/21/95
+ * Last Modified: 08/03/95
  */
 
 /*
@@ -1261,7 +1261,7 @@ void sell(struct thing *tp)
 
     if (add_pack(item, MESSAGE) == FALSE) {
 	obj->o_pos = hero;
-	fall(&player, item, TRUE);
+	fall(&player, item, TRUE, FALSE);
     }
 }
 

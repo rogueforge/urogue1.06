@@ -1,5 +1,5 @@
 /*
- * Last Modified: Jul 21, 1995
+ * Last Modified: Aug 3, 1995
  */
 
 /*
@@ -293,7 +293,7 @@ steal(void)
 
 	    if (add_pack(s_item, MESSAGE) == FALSE) {
 		(OBJPTR(s_item))->o_pos = hero;
-		fall(&player, s_item, TRUE);
+		fall(&player, s_item, TRUE, FALSE);
 	    }
 	    /* Get points for stealing from unfriendly monsters */
 

@@ -1,5 +1,5 @@
 /*
- * Last Modified: Jul 21, 1995
+ * Last Modified: Aug 3, 1995
  */
 
 /*
@@ -90,7 +90,7 @@ void missile(int ydelta, int xdelta, struct linked_list *item, struct thing *tp)
 	    msg(" vanishes in a puff of greasy smoke.");
 	    discard(item);
 	} else {
-	    fall(&player, item, TRUE);
+	    fall(&player, item, TRUE, TRUE);
 	    if (obj->o_flags & CANRETURN)
 		msg("You have %s.", inv_name(obj, LOWERCASE));
 	}
@@ -148,7 +148,7 @@ void do_motion(struct object *obj, int ydelta, int xdelta, struct thing *tp)
  * fall() - Drop an item someplace around here. 
  */
 
-void fall(struct thing *tp, struct linked_list *item, int pr)
+void fall(struct thing *tp, struct linked_list *item, int pr, int player_owned)
 {
     struct object *obj;
     struct room *rp;
@@ -157,7 +157,7 @@ void fall(struct thing *tp, struct linked_list *item, int pr)
     obj = OBJPTR(item);
     rp = roomin(tp->t_pos);
 
-    if (obj->o_flags & CANRETURN) {
+    if (player_owned && obj->o_flags & CANRETURN) {
 	add_pack(item, NOMESSAGE);
 	msg("You have %s.", inv_name(obj, LOWERCASE));
 	return;
@@ -313,39 +313,42 @@ void wield(void)
  */
 
 int fallpos(coord pos, coord *newpos)
-{
+{			
     int y, x, cnt;
+    coord places[9];
 
     cnt = 0;
 
+    /* look for all places that qualify */
     for (y = pos.y - 1; y <= pos.y + 1; y++)
 	for (x = pos.x - 1; x <= pos.x + 1; x++) {
-	    /*
-	     * check to make certain the spot is empty, if it is, put the
-	     * object there, set it in the level list and re-draw the room if
-	     * he can see it
-	     */
-
-	    if (y == hero.y && x == hero.x)
-		continue;
-	    else
-		switch ((int) winat(y, x)) {
-		case GOLD:
-		case POTION:
-		case SCROLL:
-		case FOOD:
-		case WEAPON:
-		case ARMOR:
-		case RING:
-		case STICK:
-		case FLOOR:
-		case PASSAGE:
-		case ARTIFACT:
-		    newpos->y = y;
-		    newpos->x = x;
-		    cnt++;
-		}
+	    switch((int)mvwinch(stdscr, y, x)) {
+	    case GOLD:
+	    case POTION:
+	    case SCROLL:
+	    case FOOD:
+	    case WEAPON:
+	    case ARMOR:
+	    case RING:
+	    case STICK:
+	    case FLOOR:
+	    case PASSAGE:
+	    case ARTIFACT:
+		places[cnt].y = y;
+		places[cnt].x = x;
+		cnt++;
+	    }
 	}
+
+    /* now, pick one of the places, if there are any */
+    if (cnt > 0) {
+	int which = rnd(cnt);
+
+	newpos->y = places[which].y;
+	newpos->x = places[which].x;
+
+	debug("Dropping object at %d, %d", newpos->y, newpos->x);
+    }
 
     return (cnt);
 }

@@ -1,5 +1,5 @@
 /*
- * Last Modified: Jul 21, 1995
+ * Last Modified: Aug 3, 1995
  */
 
 #include <stdlib.h>
@@ -51,7 +51,10 @@ void do_maze(void)
     item = spec_item(GOLD, 0, 0, 0);
     obj = OBJPTR(item);
     obj->o_count *= (rnd(10) + 5);	/* add in one large hunk */
-    rnd_pos(rp, &tp);
+    do {
+	rnd_pos(rp, &tp);
+    }
+    while (mvwinch(stdscr, tp.y, tp.x) != FLOOR);
     obj->o_pos = tp;
     add_obj(item, tp.y, tp.x);
 
@@ -59,7 +62,10 @@ void do_maze(void)
 
     item = spec_item(FOOD, 0, 0, 0);
     obj = OBJPTR(item);
-    rnd_pos(rp, &tp);
+    do {
+	rnd_pos(rp, &tp);
+    }
+    while (mvwinch(stdscr, tp.y, tp.x) != FLOOR);
     obj->o_pos = tp;
     add_obj(item, tp.y, tp.x);
 

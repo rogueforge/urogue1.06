@@ -1,5 +1,5 @@
 /*
- * Last Modified: Jul 21, 1995
+ * Last Modified: Aug 3, 1995
  */
 
 /*
@@ -794,7 +794,7 @@ int be_trapped(struct thing *th, coord tc)
 	    an_arrow->o_count = 1;
 	    an_arrow->o_pos = tc;
 	    an_arrow->o_mark[0] = '\0';
-	    fall(&player, itm, FALSE);
+	    fall(&player, itm, FALSE, FALSE);
 	}
 	break;
 

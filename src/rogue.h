@@ -1,5 +1,5 @@
 /*
- * Last Modified: Jul 21, 1995
+ * Last Modified: Aug 3, 1995
  */
 
 /*
@@ -1636,7 +1636,7 @@ extern char *release;
 /*weapons.c */
 
 extern void do_motion(struct object *obj, int ydelta, int xdelta, struct thing *tp);
-extern void fall(struct thing *tp, struct linked_list *item, int pr);
+extern void fall(struct thing *tp, struct linked_list *item, int pr, int player_owned);
 extern int hit_monster(int y, int x, struct object *weapon, struct thing *thrower);
 extern int wield_ok(struct thing *wieldee, struct object *obj, int print_message);
 extern int shoot_ok(int ch);
