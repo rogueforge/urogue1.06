@@ -1,5 +1,5 @@
 /*
- * Last Modified: 07/21/95
+ * Last Modified: 10/13/95
  */
 
 /*
@@ -8,5 +8,5 @@
 
 static char sccsid[] = "%W% %G%";
 
-char version[] = "UltraRogue 1.06 July 1995";
-char *release = "1.06-UX (July 1995)";
+char version[] = "UltraRogue 1.06 October 1995";
+char *release = "1.06-UX (October 1995)";

@@ -1814,4 +1814,9 @@
 1.06, Oct 11, 95
 1)	monsters killed by traps go through killed()
 
+1.06, Oct 13, 95
+1)	memory checking writes to the file trace, with bigger fences
+2)	dictionary hashing by mask
+3)	familiar crash after a level change noted in ToDo
+
 -------	End of File ------
