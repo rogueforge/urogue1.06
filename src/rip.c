@@ -1,5 +1,5 @@
 /*
- * Last Modified: Jul 21, 1995
+ * Last Modified: Sep 15, 1995
  */
 
 /*
@@ -255,17 +255,17 @@ void score(long amount, int lvl, int flags, int monst)
     }
     /* Print the list */
 
-    printf("\nTop Ten Adventurers:\n%4s %20s %12s %s\n", "Rank", "Score", "Gold", "Name");
+    printf("\nTop Ten Adventurers:\n%4s %15s %10s %s\n", "Rank", "Score", "Gold", "Name");
 
     for (scp = top_ten; scp < &top_ten[10]; scp++) {
 	if (scp->sc_score) {
-	    char lev[25];
+	    char lev[20];
 
 	    sprintf(lev, "%ld+%ld", scp->sc_lvl, scp->sc_score);
-	    printf("%4d %20s %12ld %s: ", scp - top_ten + 1, lev, scp->sc_gold, scp->sc_name);
+	    printf("%4d %15s %10ld %s: ", scp - top_ten + 1, lev, scp->sc_gold, scp->sc_name);
 
 	    if (scp->sc_artifacts) {
-		char thangs[60];
+		char thangs[80];
 		int n;
 		int first = TRUE;
 
@@ -279,8 +279,8 @@ void score(long amount, int lvl, int flags, int monst)
 			    strcat(thangs, "retrieved ");
 			    first = FALSE;
 			}
-			if (55 - strlen(thangs) < strlen(arts[n].ar_name)) {
-			    printf("%s\n%39s", thangs, " ");
+			if (45 - strlen(thangs) < strlen(arts[n].ar_name)) {
+			    printf("%s\n%32s", thangs, " ");
 			    thangs[0] = '\0';
 			}
 			strcat(thangs, arts[n].ar_name);
@@ -288,14 +288,14 @@ void score(long amount, int lvl, int flags, int monst)
 		}
 		if (strlen(thangs))
 		    printf("%s,", thangs);
-		printf("\n%39s", " ");
+		printf("\n%32s", " ");
 	    }
 	    printf("%s on level %d", reason[scp->sc_flags], scp->sc_level);
 
 	    if (scp->sc_flags == 0) {
-		printf(" by");
+		printf(" by \n%32s", " ");
 		killer = killname(scp->sc_monster, buf);
-		printf(" %s", killer);
+		printf("%s", killer);
 	    }
 	    putchar('\n');
 	}
