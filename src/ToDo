@@ -11,3 +11,9 @@ there will be more like this...
 Bug in genocide scroll: don't request list, type letter, etc...
 
 Implement potion of true sight.
+
+Bug: apparently when creating a new familiar after a player level
+change, something isn't begin reset because ur SEGVs when running
+through the monster list in do_chase() right after the new
+familiar is created. It appears that the familiar isn't being removed
+from the monster list.
