@@ -1,5 +1,5 @@
 /*
- * Last Modified: Aug 13, 1993
+ * Last Modified: Jul 21, 1995
  */
 
 /*
@@ -13,15 +13,14 @@
 void
 do_rooms(void)
 {
-    int i;
-    struct room *rp;
-    struct linked_list  *item;
-    struct thing    *tp;
-    int left_out;
-    coord   top;
-    coord   bsze;
-    coord   mp;
-
+    int             i;
+    struct room    *rp;
+    struct linked_list *item;
+    struct thing   *tp;
+    int             left_out;
+    coord           top;
+    coord           bsze;
+    coord           mp;
     /* bsze is the maximum room size */
 
     bsze.x = COLS / 3;
@@ -30,277 +29,241 @@ do_rooms(void)
     /* Clear things for a new level */
 
     for (rp = rooms; rp < &rooms[MAXROOMS]; rp++)
-        rp->r_nexits = rp->r_flags = rp->r_fires = 0;
+	rp->r_nexits = rp->r_flags = rp->r_fires = 0;
 
     /* Put the gone rooms, if any, on the level */
 
     left_out = rnd(3);
 
     for (i = 0; i < left_out; i++)
-        rooms[rnd_room()].r_flags |= ISGONE;
+	rooms[rnd_room()].r_flags |= ISGONE;
 
     /* dig and populate all the rooms on the level */
 
-    for (i = 0, rp = rooms; i < MAXROOMS; rp++, i++)
-    {
-        int has_gold = FALSE;
+    for (i = 0, rp = rooms; i < MAXROOMS; rp++, i++) {
+	int             has_gold = FALSE;
+	/* Find upper left corner of box that this room goes in */
 
-        /* Find upper left corner of box that this room goes in */
+	top.x = (i % 3) * bsze.x;
+	top.y = i / 3 * bsze.y + 1;
 
-        top.x = (i % 3) * bsze.x;
-        top.y = i / 3 * bsze.y + 1;
+	if (rp->r_flags & ISGONE) {
+	    /*
+	     * Place a gone room.  Make certain that there is a blank line
+	     * for passage drawing. 
+	     */
 
-        if (rp->r_flags & ISGONE)
-        {
-            /*
-             * Place a gone room.  Make certain that there is a
-             * blank line for passage drawing.
-             */
+	    do {
+		rp->r_pos.x = top.x + rnd(bsze.x - 2) + 1;
+		rp->r_pos.y = top.y + rnd(bsze.y - 2) + 1;
+		rp->r_max.x = -COLS;
+		rp->r_max.x = -LINES;
+	    }
+	    while (rp->r_pos.y < 1 || rp->r_pos.y > LINES - 3);
 
-            do
-            {
-                rp->r_pos.x = top.x + rnd(bsze.x - 2) + 1;
-                rp->r_pos.y = top.y + rnd(bsze.y - 2) + 1;
-                rp->r_max.x = -COLS;
-                rp->r_max.x = -LINES;
-            }
-            while (rp->r_pos.y < 1 || rp->r_pos.y > LINES - 3);
+	    continue;
+	}
+	if (rnd(40) < level - 5)
+	    rp->r_flags |= ISDARK;
 
-            continue;
-        }
+	/* Find a place and size for a random room */
 
-        if (rnd(40) < level - 5)
-            rp->r_flags |= ISDARK;
+	do {
+	    rp->r_max.x = rnd(bsze.x - 4) + 4;
+	    rp->r_max.y = rnd(bsze.y - 4) + 4;
+	    rp->r_pos.x = top.x + rnd(bsze.x - rp->r_max.x);
+	    rp->r_pos.y = top.y + rnd(bsze.y - rp->r_max.y);
+	}
+	while (rp->r_pos.y == 0);
 
-        /* Find a place and size for a random room */
+	/* Draw the room */
 
-        do
-        {
-            rp->r_max.x = rnd(bsze.x - 4) + 4;
-            rp->r_max.y = rnd(bsze.y - 4) + 4;
-            rp->r_pos.x = top.x + rnd(bsze.x - rp->r_max.x);
-            rp->r_pos.y = top.y + rnd(bsze.y - rp->r_max.y);
-        }
-        while (rp->r_pos.y == 0);
+	draw_room(rp);
 
-        /* Draw the room */
+	/* Put the gold in */
 
-        draw_room(rp);
+	if (rnd(10) < 3 && (!has_artifact || level >= max_level)) {
+	    struct linked_list *itm;
+	    struct object  *cur;
+	    coord           tpos;
+	    has_gold = TRUE;	/* This room has gold in it */
 
-        /* Put the gold in */
+	    itm = spec_item(GOLD, 0, 0, 0);
+	    cur = OBJPTR(itm);
 
-        if (rnd(10) < 3 && (!has_artifact || level >= max_level))
-        {
-            struct linked_list *itm;
-            struct object   *cur;
-            coord   tpos;
+	    /* Put it somewhere */
 
-            has_gold = TRUE;    /* This room has gold in it */
+	    rnd_pos(rp, &tpos);
+	    cur->o_pos = tpos;
 
-            itm = spec_item(GOLD, 0, 0, 0);
-            cur = OBJPTR(itm);
+	    /* Put the gold into the level list of items */
 
-            /* Put it somewhere */
+	    add_obj(itm, tpos.y, tpos.x);
 
-            rnd_pos(rp, &tpos);
-            cur->o_pos = tpos;
+	    if (roomin(tpos) != rp) {
+		endwin();
+		abort();
+	    }
+	}
+	/* Put the monster in */
 
-            /* Put the gold into the level list of items */
+	if (rnd(100) < (has_gold ? 80 : 40)) {
+	    short           which;
+	    int             n,
+	                    cnt;
+	    item = new_item(sizeof *tp);
+	    tp = THINGPTR(item);
 
-            add_obj(itm, tpos.y, tpos.x);
+	    do
+		rnd_pos(rp, &mp);
+	    while (mvwinch(stdscr, mp.y, mp.x) != FLOOR);
 
-            if (roomin(tpos) != rp)
-            {
-                endwin();
-                abort();
-            }
-        }
+	    which = randmonster(NOWANDER, NOGRAB);
+	    new_monster(item, which, &mp, NOMAXSTATS);
 
-        /* Put the monster in */
+	    /* See if we want to give it a treasure to carry around. */
 
-        if (rnd(100) < (has_gold ? 80 : 40))
-        {
-            short   which;
-            int n, cnt;
+	    if (rnd(100) < monsters[tp->t_index].m_carry)
+		attach(tp->t_pack, new_thing());
 
-            item = new_item(sizeof *tp);
-            tp = THINGPTR(item);
+	    /* If it has a fire, mark it */
 
-            do
-                rnd_pos(rp, &mp);
-            while (mvwinch(stdscr, mp.y, mp.x) != FLOOR);
+	    if (on(*tp, HASFIRE)) {
+		rp->r_flags |= HASFIRE;
+		rp->r_fires++;
+	    }
+	    /* If it carries gold, give it some */
 
-            which = randmonster(NOWANDER, NOGRAB);
-            new_monster(item, which, &mp, NOMAXSTATS);
+	    if (on(*tp, CARRYGOLD)) {
+		struct object  *cur;
+		item = spec_item(GOLD, 0, 0, 0);
+		cur = OBJPTR(item);
+		cur->o_count = GOLDCALC + GOLDCALC + GOLDCALC;
+		cur->o_pos = tp->t_pos;
+		attach(tp->t_pack, item);
+	    }
+	    n = rnd(7);
 
-            /* See if we want to give it a treasure to carry around. */
+	    if (on(*tp, ISSWARM) && n < 5)
+		cnt = roll(2, 4);
+	    else if (on(*tp, ISFLOCK) && n < 5)
+		cnt = roll(1, 4);
+	    else
+		cnt = 0;
 
-            if (rnd(100) < monsters[tp->t_index].m_carry)
-                attach(tp->t_pack, new_thing());
+	    for (n = 1; n <= cnt; n++) {
+		coord           pos;
+		if (place_mons(mp.y, mp.x, &pos) != FALSE) {
+		    struct linked_list *nitem;
+		    nitem = new_item(sizeof(struct thing));
+		    new_monster(nitem, which, &pos, NOMAXSTATS);
 
-            /* If it has a fire, mark it */
+		    /* If the monster is on a trap, trap it */
 
-            if (on(*tp, HASFIRE))
-            {
-                rp->r_flags |= HASFIRE;
-                rp->r_fires++;
-            }
+		    if (isatrap(mvinch(pos.y, pos.x)))
+			be_trapped(THINGPTR(nitem), mp);
 
-            /* If it carries gold, give it some */
+		    if (on(*tp, ISFRIENDLY))
+			turn_on(*(THINGPTR(nitem)), ISFRIENDLY);
+		    else
+			turn_off(*(THINGPTR(nitem)), ISFRIENDLY);
+		}
+	    }
 
-            if (on(*tp, CARRYGOLD))
-            {
-                struct object   *cur;
+	    if (cnt > 0) {
+		int             boost = rnd(3) + 1;
+		if (on(*tp, LOWCAST) || on(*tp, MEDCAST) || on(*tp, HIGHCAST))
+		    turn_on(*tp, CANCAST);
 
-                item = spec_item(GOLD, 0, 0, 0);
-                cur = OBJPTR(item);
-                cur->o_count = GOLDCALC + GOLDCALC + GOLDCALC;
-                cur->o_pos = tp->t_pos;
-                attach(tp->t_pack, item);
-            }
-
-            n = rnd(7);
-
-            if (on(*tp, ISSWARM) && n < 5)
-                cnt = roll(2, 4);
-            else if (on(*tp, ISFLOCK) && n < 5)
-                cnt = roll(1, 4);
-            else
-                cnt = 0;
-
-            for (n = 1; n <= cnt; n++)
-            {
-                coord   pos;
-
-                if (place_mons(mp.y, mp.x, &pos)!= FALSE)
-                {
-                    struct linked_list  *nitem;
-
-                    nitem = new_item(sizeof(struct thing));
-                    new_monster(nitem, which, &pos, NOMAXSTATS);
-
-                    /* If the monster is on a trap, trap it */
-
-                    if (isatrap(mvinch(pos.y, pos.x)))
-                        be_trapped(THINGPTR(nitem), mp);
-
-                    if (on(*tp, ISFRIENDLY))
-                        turn_on(*(THINGPTR(nitem)), ISFRIENDLY);
-                    else
-                        turn_off(*(THINGPTR(nitem)), ISFRIENDLY);
-                }
-            }
-
-            if (cnt > 0)
-            {
-                int boost = rnd(3) + 1;
-
-                if (on(*tp, LOWCAST) || on(*tp, MEDCAST) || on(*tp, HIGHCAST))
-                    turn_on(*tp, CANCAST);
-
-                tp->t_stats.s_hpt += 3 * boost;
-                tp->t_stats.s_arm -= 2 * boost;
-                tp->t_stats.s_lvl += 2 * boost;
-                tp->t_stats.s_str += 2 * boost;
-                tp->t_stats.s_intel += 2 * boost;
-                tp->t_stats.s_exp += 4 * boost * monsters[which].m_add_exp;
-            }
-        }
+		tp->t_stats.s_hpt += 3 * boost;
+		tp->t_stats.s_arm -= 2 * boost;
+		tp->t_stats.s_lvl += 2 * boost;
+		tp->t_stats.s_str += 2 * boost;
+		tp->t_stats.s_intel += 2 * boost;
+		tp->t_stats.s_exp += 4 * boost * monsters[which].m_add_exp;
+	    }
+	}
     }
 }
-
 /*
-    draw_room()
-        Draw a box around a room
-*/
+ * draw_room() Draw a box around a room 
+ */
 
 void
-draw_room(struct room *rp)
+draw_room(struct room * rp)
 {
-    int j, k;
-
+    int             j,
+                    k;
     move(rp->r_pos.y, rp->r_pos.x + 1);
-    vert(rp->r_max.y - 2);  /* Draw left side */
+    vert(rp->r_max.y - 2);	/* Draw left side */
     move(rp->r_pos.y + rp->r_max.y - 1, rp->r_pos.x);
-    horiz(rp->r_max.x); /* Draw bottom */
+    horiz(rp->r_max.x);		/* Draw bottom */
     move(rp->r_pos.y, rp->r_pos.x);
-    horiz(rp->r_max.x); /* Draw top */
-    vert(rp->r_max.y - 2);  /* Draw right side */
+    horiz(rp->r_max.x);		/* Draw top */
+    vert(rp->r_max.y - 2);	/* Draw right side */
 
     /* Put the floor down */
 
-    for (j = 1; j < rp->r_max.y - 1; j++)
-    {
-        move(rp->r_pos.y + j, rp->r_pos.x + 1);
+    for (j = 1; j < rp->r_max.y - 1; j++) {
+	move(rp->r_pos.y + j, rp->r_pos.x + 1);
 
-        for (k = 1; k < rp->r_max.x - 1; k++)
-            addch((char)FLOOR);
+	for (k = 1; k < rp->r_max.x - 1; k++)
+	    addch((char) FLOOR);
     }
 }
-
 /*
-    horiz()
-        draw a horizontal line
-*/
+ * horiz() draw a horizontal line 
+ */
 
 void
-horiz(int cnt)
+horiz(int             cnt)
 {
-    while(cnt--)
-        addch((char)'-');
+    while (cnt--)
+	addch((char) '-');
 }
-
 /*
-    vert()
-        draw a vertical line
-*/
+ * vert() draw a vertical line 
+ */
 
 void
-vert(int cnt)
+vert(int             cnt)
 {
-    int x, y;
-
+    int             x,
+                    y;
     getyx(stdscr, y, x);
 
     x--;
 
-    while(cnt--)
-    {
-        move(++y, x);
-        addch((char)'|');
+    while (cnt--) {
+	move(++y, x);
+	addch((char) '|');
     }
 }
-
 /*
-    rnd_pos()
-        pick a random spot in a room
-*/
+ * rnd_pos() pick a random spot in a room 
+ */
 
 void
-rnd_pos(struct room *rp, coord *cp)
+rnd_pos(struct room * rp, coord * cp)
 {
     cp->x = rp->r_pos.x + rnd(rp->r_max.x - 2) + 1;
     cp->y = rp->r_pos.y + rnd(rp->r_max.y - 2) + 1;
 }
-
 /*
-    rnd_room()
-        Pick a room that is really there
-*/
+ * rnd_room() Pick a room that is really there 
+ */
 
 int
 rnd_room(void)
 {
-    int rm;
-
+    int             rm;
     if (levtype != NORMLEV)
-        rm = 0;
+	rm = 0;
     else
-        do
-        {
-            rm = rnd(MAXROOMS);
-        }
-        while (rooms[rm].r_flags & ISGONE);
+	do {
+	    rm = rnd(MAXROOMS);
+	}
+	while (rooms[rm].r_flags & ISGONE);
 
-    return(rm);
+    return (rm);
 }
