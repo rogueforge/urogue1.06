@@ -1773,4 +1773,15 @@
 1)	food can be bought at the trading post again
 2)	finding a trap names it properly
 
+1.06 Alpha, July 21, 1995
+1)	Many changes made to fix remaining parameter passing related bugs.
+2)	Also, changes made to toughen game. Entire dungeon is now only 50
+	levels deep instead of 100 so that monsters get harder faster.
+3)	No more trading posts except at beginning or if entrance to
+	trading post is found.
+4)	The hero now regains spell points more slowly, has a tougher time with
+	some things, and generally is weaker than he used to be.
+5)	The game is not as hard as it needs to be yet, although i can make it
+	to about level 20 or so most times I play it.
+
 -------	End of File ------
