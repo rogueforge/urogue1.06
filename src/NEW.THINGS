@@ -1811,4 +1811,7 @@
 1.06, Sep 29, 95
 1)	ring names are given back with mem_free()
 
+1.06, Oct 11, 95
+1)	monsters killed by traps go through killed()
+
 -------	End of File ------

@@ -1,5 +1,5 @@
 /*
- * Last Modified: Aug 3, 1995
+ * Last Modified: Oct 11, 1995
  */
 
 /*
@@ -701,12 +701,9 @@ int be_trapped(struct thing *th, coord tc)
 	} else {
 	    if (can_see)
 		msg("The %s fell into a trap!", mname);
-	    if (on(*th, ISFAMILIAR)) {
+	    if (on(*th, ISFAMILIAR))
 		turn_off(player, HASFAMILIAR);
-		msg("An incredible wave of sadness sweeps over you!");
-	    }
-	    check_residue(th);
-	    remove_monster(&th->t_pos, mitem);
+	    killed(NULL, mitem, NOMESSAGE, NOPOINTS);
 	}
 	break;
 
@@ -770,10 +767,8 @@ int be_trapped(struct thing *th, coord tc)
 		    if ((th->t_stats.s_hpt -= roll(1, 6)) <= 0) {
 			if (can_see)
 			    msg("The arrow killed the %s.", mname);
-			if (on(*th, ISFAMILIAR)) {
+			if (on(*th, ISFAMILIAR))
 			    turn_off(player, HASFAMILIAR);
-			    msg("An incredible wave of sadness sweeps over you!");
-			}
 			killed(NULL, mitem, NOMESSAGE, NOPOINTS);
 		    }
 		}
@@ -886,10 +881,8 @@ int be_trapped(struct thing *th, coord tc)
 		    else if (th->t_stats.s_hpt < 0) {
 			if (can_see)
 			    msg("The dart killed the %s.", mname);
-			if (on(*th, ISFAMILIAR)) {
+			if (on(*th, ISFAMILIAR))
 			    turn_off(player, HASFAMILIAR);
-			    msg("An incredible wave of sadness sweeps over you!");
-			}
 			killed(NULL, mitem, NOMESSAGE, NOPOINTS);
 		    }
 	    }
@@ -975,10 +968,8 @@ int be_trapped(struct thing *th, coord tc)
 		    if (off(*th, HASOXYGEN)) {
 			if (can_see)
 			    msg("The %s has drowned!", mname);
-			if (on(*th, ISFAMILIAR)) {
+			if (on(*th, ISFAMILIAR))
 			    turn_off(player, HASFAMILIAR);
-			    msg("An incredible wave of sadness sweeps over you!");
-			}
 			killed(NULL, mitem, NOMESSAGE, NOPOINTS);
 		    }
 		}
@@ -1014,12 +1005,9 @@ int be_trapped(struct thing *th, coord tc)
 	} else {
 	    if (can_see)
 		msg("The %s fell into a trap!", mname);
-	    if (on(*th, ISFAMILIAR)) {
+	    if (on(*th, ISFAMILIAR))
 		turn_off(player, HASFAMILIAR);
-		msg("An incredible wave of sadness sweeps over you!");
-	    }
-	    check_residue(th);
-	    remove_monster(&th->t_pos, mitem);
+	    killed(NULL, mitem, NOMESSAGE, NOPOINTS);
 	}
 	break;
 
@@ -1045,8 +1033,7 @@ int be_trapped(struct thing *th, coord tc)
 		if (on(*th, CANBBURN)) {
 		    if (can_see)
 			msg("The %s is burned to death by the flames.", mname);
-		    check_residue(th);
-		    remove_monster(&th->t_pos, mitem);
+		    killed(NULL, mitem, NOMESSAGE, NOPOINTS);
 		} else if (on(*th, NOFIRE)) {
 		    if (can_see)
 			msg("The %s passes through the flames unharmed.", mname);
@@ -1056,12 +1043,9 @@ int be_trapped(struct thing *th, coord tc)
 		    if ((th->t_stats.s_hpt -= roll(th->t_stats.s_lvl, 3)) < 0) {
 			if (can_see)
 			    msg("The %s is burned to death by the flames.", mname);
-			if (on(*th, ISFAMILIAR)) {
+			if (on(*th, ISFAMILIAR))
 			    turn_off(player, HASFAMILIAR);
-			    msg("An incredible wave of sadness sweeps over you!");
-			}
-			check_residue(th);
-			remove_monster(&th->t_pos, mitem);
+			killed(NULL, mitem, NOMESSAGE, NOPOINTS);
 		    } else if (th->t_stats.s_intel < rnd(20)) {
 			if (can_see)
 			    msg("The %s turns and runs away in fear.", mname);
@@ -1095,12 +1079,9 @@ int be_trapped(struct thing *th, coord tc)
 		if (th->t_stats.s_hpt *= 2.0 / 3.0 < 0) {
 		    if (can_see)
 			msg("The %s dies from the poison.", mname);
-		    if (on(*th, ISFAMILIAR)) {
+		    if (on(*th, ISFAMILIAR))
 			turn_off(player, HASFAMILIAR);
-			msg("An incredible wave of sadness sweeps over you!");
-		    }
-		    check_residue(th);
-		    remove_monster(&th->t_pos, mitem);
+		    killed(NULL, mitem, NOMESSAGE, NOPOINTS);
 		}
 	}
 	break;
@@ -1113,12 +1094,9 @@ int be_trapped(struct thing *th, coord tc)
 	} else {
 	    if (can_see)
 		msg("The %s fell into a trap!", mname);
-	    if (on(*th, ISFAMILIAR)) {
+	    if (on(*th, ISFAMILIAR))
 		turn_off(player, HASFAMILIAR);
-		msg("An incredible wave of sadness sweeps over you!");
-	    }
-	    check_residue(th);
-	    remove_monster(&th->t_pos, mitem);
+	    killed(NULL, mitem, NOMESSAGE, NOPOINTS);
 	}
 	break;
 
