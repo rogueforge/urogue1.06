@@ -14,7 +14,9 @@ DEST	      = /usr/games
 
 EXTHDRS	      =
 
-HDRS	      = rogue.h
+HDRS	      = dict.h \
+		dictutil.h \
+		rogue.h
 
 INSTALL	      = install
 
@@ -37,6 +39,8 @@ OBJS	      = armor.o \
 		command.o \
 		daemon.o \
 		daemons.o \
+		dict.o \
+		dictutil.o \
 		encumb.o \
 		fight.o \
 		getplay.o \
@@ -47,6 +51,7 @@ OBJS	      = armor.o \
 		magic.o \
 		main.o \
 		maze.o \
+		memory.o \
 		misc.o \
 		monsdata.o \
 		monsters.o \
@@ -91,6 +96,8 @@ SRCS	      = armor.c \
 		command.c \
 		daemon.c \
 		daemons.c \
+		dict.c \
+		dictutil.c \
 		encumb.c \
 		fight.c \
 		getplay.c \
@@ -101,6 +108,7 @@ SRCS	      = armor.c \
 		magic.c \
 		main.c \
 		maze.c \
+		memory.c \
 		misc.c \
 		monsdata.c \
 		monsters.c \
@@ -170,6 +178,8 @@ chase.o: rogue.h
 command.o: rogue.h
 daemon.o: rogue.h
 daemons.o: rogue.h
+dict.o: dict.h dictutil.h
+dictutil.o: dict.h dictutil.h
 encumb.o: rogue.h
 fight.o: rogue.h
 getplay.o: rogue.h
@@ -180,6 +190,7 @@ list.o: rogue.h
 magic.o: rogue.h
 main.o: rogue.h
 maze.o: rogue.h
+memory.o: dict.h dictutil.h rogue.h
 misc.o: rogue.h
 monsdata.o: rogue.h
 monsters.o: rogue.h

@@ -1,5 +1,5 @@
 /*
- * Last Modified: Jul 21, 1995
+ * Last Modified: Aug 3, 1995
  */
 
 /*
@@ -808,7 +808,7 @@ make_omnipotent(void)
     know_items[TYP_STICK][WS_DISINTEGRATE] = TRUE;
 
     if (guess_items[TYP_STICK][WS_DISINTEGRATE]) {
-	free(guess_items[TYP_STICK][WS_DISINTEGRATE]);
+	ur_free(guess_items[TYP_STICK][WS_DISINTEGRATE]);
 	guess_items[TYP_STICK][WS_DISINTEGRATE] = NULL;
     }
     add_pack(item, NOMESSAGE);
@@ -836,7 +836,7 @@ make_omnipotent(void)
 	know_items[TYP_RING][R_SEARCH] = TRUE;
 
 	if (guess_items[TYP_RING][R_SEARCH]) {
-	    free(guess_items[TYP_RING][R_SEARCH]);
+	    ur_free(guess_items[TYP_RING][R_SEARCH]);
 	    guess_items[TYP_RING][R_SEARCH] = NULL;
 	}
 	add_pack(item, NOMESSAGE);
@@ -848,7 +848,7 @@ make_omnipotent(void)
 	know_items[TYP_RING][R_PIETY] = TRUE;
 
 	if (guess_items[TYP_RING][R_PIETY]) {
-	    free(guess_items[TYP_RING][R_PIETY]);
+	    ur_free(guess_items[TYP_RING][R_PIETY]);
 	    guess_items[TYP_RING][R_PIETY] = NULL;
 	}
 	add_pack(item, NOMESSAGE);
@@ -859,7 +859,7 @@ make_omnipotent(void)
     know_items[TYP_SCROLL][S_ELECTRIFY] = TRUE;
 
     if (guess_items[TYP_SCROLL][S_ELECTRIFY]) {
-	free(guess_items[TYP_SCROLL][S_ELECTRIFY]);
+	ur_free(guess_items[TYP_SCROLL][S_ELECTRIFY]);
 	guess_items[TYP_SCROLL][S_ELECTRIFY] = NULL;
     }
     add_pack(item, NOMESSAGE);
@@ -1309,7 +1309,7 @@ call(int             mark)
 	msg("What do you want to call it? ");
 
 	if (guess_items[item_type][obj->o_which] != NULL)
-	    free(guess_items[item_type][obj->o_which]);
+	    ur_free(guess_items[item_type][obj->o_which]);
 
 	strcpy(prbuf, elsewise);
     }

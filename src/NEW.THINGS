@@ -1784,4 +1784,11 @@
 5)	The game is not as hard as it needs to be yet, although i can make it
 	to about level 20 or so most times I play it.
 
+1.06 Alpha, August 3, 1995
+1)	Many more changes to allow dropping of stuff even where monsters or the
+	hero is, so there should almost never be messages of objects vanishing
+	in a puff of smoke. Also more error checking, debugging messages, and
+	generally much more bullet proof.
+2)	Restored ability to zap with charged weapons.
+
 -------	End of File ------

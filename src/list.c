@@ -1,5 +1,5 @@
 /*
- * Last Modified: Jul 21, 1995
+ * Last Modified: Aug 3, 1995
  */
 
 /*
@@ -26,7 +26,7 @@ void *ur_alloc(unsigned int size)
 
     total++;
 
-    buf_p = malloc(size);
+    buf_p = mem_malloc(size);
 
     if (buf_p == NULL)
 	return (NULL);
@@ -38,7 +38,7 @@ void *ur_alloc(unsigned int size)
 
 void ur_free(void *buf_p)
 {
-    free(buf_p);
+    mem_free(buf_p);
     total--;
 }
 
@@ -176,7 +176,7 @@ struct linked_list *new_list(void)
 	void *vptr;
     } newp;
 
-    newp.vptr = malloc(sizeof(struct linked_list));
+    newp.vptr = mem_malloc(sizeof(struct linked_list));
     memset(newp.vptr, 0, sizeof(struct linked_list));
     return (newp.ll);
 }

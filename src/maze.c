@@ -124,8 +124,8 @@ void draw_maze(void)
     lines = (LINES - 3) / 2;
     cols = (COLS - 1) / 2;
 
-    bits = malloc((unsigned int)((LINES - 3) * (COLS - 1)));
-    frontier = malloc((unsigned int)(lines * cols));
+    bits = ur_alloc((unsigned int)((LINES - 3) * (COLS - 1)));
+    frontier = ur_alloc((unsigned int)(lines * cols));
     ptr = frontier;
 
     while (ptr < (frontier + (lines * cols)))
@@ -149,8 +149,8 @@ void draw_maze(void)
     }
 
     crankout();
-    free(frontier);
-    free(bits);
+    ur_free(frontier);
+    ur_free(bits);
 }
 
 /*

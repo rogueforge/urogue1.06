@@ -1,5 +1,5 @@
 /*
- * Last Modified: Jul 21, 1995
+ * Last Modified: Aug 3, 1995
  */
 
 /*
@@ -917,7 +917,7 @@ quaff(struct thing * quaffer, int            which,
     if (is_potion) {
 	if (!cursed && know_items[TYP_POTION][which] &&
 	    guess_items[TYP_POTION][which]) {
-	    free(guess_items[TYP_POTION][which]);
+	    ur_free(guess_items[TYP_POTION][which]);
 	    guess_items[TYP_POTION][which] = NULL;
 	} else if (askme && !know_items[TYP_POTION][which] &&
 		   guess_items[TYP_POTION][which] == NULL) {

@@ -1,5 +1,5 @@
 /*
- * Last Modified: Jul 21, 1995
+ * Last Modified: Aug 3, 1995
  */
 
 #include <stdlib.h>
@@ -1095,7 +1095,7 @@ void read_scroll(struct thing *reader, int which, int flags)
 
     if (is_scroll) {
 	if (know_items[TYP_SCROLL][which] && guess_items[TYP_SCROLL][which]) {
-	    free(guess_items[TYP_SCROLL][which]);
+	    ur_free(guess_items[TYP_SCROLL][which]);
 	    guess_items[TYP_SCROLL][which] = NULL;
 	} else if (askme && !know_items[TYP_SCROLL][which] && guess_items[TYP_SCROLL][which] == NULL) {
 	    msg("What do you want to call it? ");

@@ -1284,6 +1284,16 @@ extern int findcells(int y, int x);
 extern void rmwall(int newy, int newx, int oldy, int oldx);
 extern void crankout(void);
 
+/* memory.c */
+
+extern void mem_debug(const int level);
+extern void mem_tracking(int flag);
+extern int mem_check(void);
+extern void *mem_malloc(const size_t bytes);
+extern void mem_free(const void *ptr);
+extern void *mem_realloc(const void *ptr, const size_t new_size);
+extern int mem_validate(const void *ptr);
+
 /* misc.c */
 
 extern char *tr_name(char ch, char *buf);

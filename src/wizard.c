@@ -1,5 +1,5 @@
 /*
- * Last Modified: Jul 21, 1995
+ * Last Modified: Aug 3, 1995
  */
 
 /*
@@ -52,7 +52,7 @@ void whatis(struct linked_list *what)
 	know_items[kludge][obj->o_which] = TRUE;
 
 	if (guess_items[kludge][obj->o_which]) {
-	    free(guess_items[kludge][obj->o_which]);
+	    ur_free(guess_items[kludge][obj->o_which]);
 	    guess_items[kludge][obj->o_which] = NULL;
 	}
     }
