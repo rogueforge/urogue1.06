@@ -1834,4 +1834,8 @@
 1)	wands and staffs of carbon, plastic, glass, ice, chocolate, gold,
 	silver and invisible
 
+1.06, Jul 14, 97
+1)	the screen is touched before it is redrawn, and the trading post
+	clears the lines it writes
+
 -------	End of File ------
