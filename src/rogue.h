@@ -1,5 +1,5 @@
 /*
- * Last Modified: Aug 3, 1995
+ * Last Modified: Oct 17, 1995
  */
 
 /*
@@ -60,13 +60,10 @@ static char rogue_h_sccsid[] = "%W% %G%";
 #define next(ptr) ((ptr)?(ptr->l_next):NULL)
 #define prev(ptr) ((ptr)?(ptr->l_prev):NULL)
 #define identifier(ptr) (ptr->o_ident)
-#define winat(y,x) ( (char) \
- ((mvwinch(mw,y,x) == ' ') ? mvwinch(stdscr,y,x) : winch(mw)) )
-
+#define winat(y,x) ( (char)((mvwinch(mw,y,x) == ' ') ? mvwinch(stdscr,y,x) : winch(mw)) )
 #define debug if (wizard && wiz_verbose) msg
-#define DISTANCE(c1, c2) ( ((c2).x - (c1).x)*((c2).x - (c1).x) + \
-							((c2).y - (c1).y)*((c2).y - (c1).y) )
-
+#define verify(b) if (b) verify_function(__FILE__, __LINE__)
+#define DISTANCE(c1, c2) ( ((c2).x - (c1).x)*((c2).x - (c1).x) + ((c2).y - (c1).y)*((c2).y - (c1).y) )
 #define xyDISTANCE(y1, x1, y2, x2) ((x2 - x1)*(x2 - x1) + (y2 - y1)*(y2 - y1))
 #define OBJPTR(what)	((*what).data.obj)
 #define THINGPTR(what)	((*what).data.th)
@@ -1290,7 +1287,7 @@ extern void crankout(void);
 
 extern void mem_debug(const int level);
 extern void mem_tracking(int flag);
-extern int mem_check(void);
+extern int mem_check(char *fname, int line);
 extern void *mem_malloc(const size_t bytes);
 extern void mem_free(const void *ptr);
 extern void *mem_realloc(const void *ptr, const size_t new_size);
@@ -1639,6 +1636,10 @@ extern void describe_it(struct object *obj);
 extern int open_market(void);
 extern int get_worth(struct object *obj);
 extern void trans_line(void);
+
+/*verify.c */
+
+extern void verify_function(const char *file, const int line);
 
 /*vers.c */
 
