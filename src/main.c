@@ -33,6 +33,7 @@ main(int argc, char *argv[])
     long    now;
     int rflag;
     char *nm;
+    float scale;
 
     for (x = 1; x < argc; x++)
     {
@@ -146,6 +147,10 @@ main(int argc, char *argv[])
     crmode();           /* Cbreak mode */
     noecho();           /* Echo off */
     nonl();
+
+    scale = (float) (LINES * COLS) / (80.0 * 25.0); /* get food right for different screen sizes */
+
+    food_left *= scale;
 
     /* Set up windows */
 
