@@ -1,5 +1,5 @@
 /*
- * Last Modified: Aug 3, 1995
+ * Last Modified: Oct 17, 1995
  */
 
 /*
@@ -889,6 +889,7 @@ quit_handler(int             sig)
 
     quit();
 }
+
 void
 quit(void)
 {
