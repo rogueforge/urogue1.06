@@ -67,7 +67,7 @@ tr_name(char ch, char *trname)
             ;
     }
 
-    sprintf(trname, "You found a %d", s);
+    sprintf(trname, "You found a %s", s);
 
     return(trname);
 }
