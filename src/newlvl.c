@@ -121,7 +121,7 @@ new_level(LEVTYPE ltype)
 
             /* maybe a lair */
 
-            if (level > 50 && ltype == NORMLEV && rnd(wizard ? 3 : 10) == 0)
+            if (level > 35 && ltype == NORMLEV && rnd(wizard ? 3 : 10) == 0)
             {
                 cnt = 0;
 

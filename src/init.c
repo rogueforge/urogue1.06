@@ -569,14 +569,14 @@ struct init_armor   armors[] =
 int     maxarmors = MAXARMORS;
 
 struct init_artifact    arts[] = {
-    { "Magic Purse of Yendor", 25, 1, 1, 1,  1,  460000L, 50 },
-    { "Phial of Galadriel",    35, 2, 2, 2,  1, 1250000L, 10 },
-    { "Amulet of Yendor",      45, 4, 1, 1,  2, 1600000L, 10 },
-    { "Palantir of Might",     60, 1, 4, 1,  2, 1850000L, 70 },
-    { "Crown of Might",        75, 6, 2, 1,  1, 2350000L, 50 },
-    { "Sceptre of Might",      80, 2, 2, 1,  6, 3800000L, 50 },
-    { "Silmaril of Ea",        90, 4, 2, 5,  1, 5000000L, 50 },
-    { "Wand of Yendor",      100, 4, 2, 3, 10, 8000000L, 50 }
+    { "Magic Purse of Yendor", 15, 1, 1, 1,  1,  4600L, 50 },
+    { "Phial of Galadriel",    20, 2, 2, 2,  1, 12500L, 10 },
+    { "Amulet of Yendor",      25, 4, 1, 1,  2, 16000L, 10 },
+    { "Palantir of Might",     30, 1, 4, 1,  2, 18500L, 70 },
+    { "Crown of Might",        35, 6, 2, 1,  1, 23500L, 50 },
+    { "Sceptre of Might",      40, 2, 2, 1,  6, 38000L, 50 },
+    { "Silmaril of Ea",        45, 4, 2, 5,  1, 50000L, 50 },
+    { "Wand of Yendor",      50, 4, 2, 3, 10, 80000L, 50 }
 };
 
 int     maxartifact = MAXARTIFACT;

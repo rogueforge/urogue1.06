@@ -1037,7 +1037,7 @@ attack(struct thing *mp, struct object *weapon, int thrown)
                          obj != cur_ring[RIGHT_5] &&
                          !(obj->o_flags & ISPROT) &&
                          is_magic(obj)
-                         || level > 95)
+                         || level > 45)
                         && get_worth(obj) > worth)
                     {
                         stealit = list;

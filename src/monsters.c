@@ -235,7 +235,7 @@ new_monster(struct linked_list *item, int type, coord *cp, int max_monster)
     tp->t_stats.s_exp = mp->m_stats.s_exp + mp->m_add_exp * tp->t_stats.s_hpt;
     tp->t_stats.s_str = mp->m_stats.s_str;
 
-    if (max_level > 70)
+    if (max_level > 30)
     {
         tp->t_stats.s_hpt += roll(4, (max_level - 60) * 2);
         tp->t_stats.s_lvl += roll(4, (max_level - 60) / 8);
@@ -254,7 +254,7 @@ new_monster(struct linked_list *item, int type, coord *cp, int max_monster)
     tp->t_stats.s_const = 8 + rnd(4);
     tp->t_stats.s_charisma = 8 + rnd(4);
 
-    if (max_level > 60)
+    if (max_level > 45)
         tp->t_stats.s_dext += roll(2, (max_level - 50) / 8);
 
     /* Set the initial flags */
