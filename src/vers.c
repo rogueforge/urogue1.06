@@ -1,10 +1,10 @@
 /*
- * Last Modified: 12/02/93
+ * Last Modified: 07/21/95
  */
 
 /*
  * version number  
  */
 
-char version[] = "UltraRogue 1.05 mm/dd/yy 12/02/93";
-char *release  = "1.05 (Dr. C and Yendor were here 12/02/93)";
+char version[] = "UltraRogue 1.06 July 1995";
+char *release = "1.06-UX (July 1995)";
