@@ -1,5 +1,5 @@
 /*
- * Last Modified: Jul 21, 1995
+ * Last Modified: Nov 14, 1995
  */
 
 #include "rogue.h"
@@ -312,6 +312,7 @@ new_level(LEVTYPE ltype)
 	} else
 	    free_list(fpack);
     }
+    mem_check(__FILE__, __LINE__);
     status(TRUE);
 }
 /*
