@@ -441,6 +441,8 @@ buy_more:
             break;
 
         case TYP_FOOD:
+            break;
+
         default:
             msg("That's a strange thing to try to own.");
             itemtype = '\0';
