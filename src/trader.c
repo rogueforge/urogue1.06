@@ -1,5 +1,5 @@
 /*
- * Last Modified: Jul 21, 1995
+ * Last Modified: Sep 18, 1995
  */
 
 /*
@@ -318,6 +318,7 @@ buy_more:
     obj->o_count = 1;
     obj->o_weight = 0;
     obj->o_dplus = obj->o_hplus = 0;
+    cur_worth = 0;
 
     if (!is_spell) {
 	plus_or_minus = -100;
@@ -404,6 +405,7 @@ buy_more:
 	break;
     default:
 	msg("That's a strange thing to try to own.");
+	discard(item);
 	itemtype = '\0';
 	goto buy_more;
     }
@@ -419,6 +421,7 @@ buy_more:
 	touchwin(hw);
 	wrefresh(hw);
 	wait_for(' ');
+	discard(item);
 	itemtype = '\0';
 	goto buy_more;
     }
@@ -431,6 +434,7 @@ buy_more:
     case ESCAPE:
     case 'n':
 	msg("");
+	discard(item);
 	itemtype = '\0';
 	goto buy_more;
     }
