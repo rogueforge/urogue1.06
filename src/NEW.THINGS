@@ -1823,4 +1823,7 @@
 1)	verify() reports a failed check with its file and line
 2)	memory tracking is on
 
+1.06, Nov 2, 95
+1)	the Makefile builds verify.c
+
 -------	End of File ------

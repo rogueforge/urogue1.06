@@ -1,4 +1,4 @@
-# SCCSID @(#)Makefile	1.1 8/16/95
+# SCCSID %W% %G%
 
 COMPFLAGS	  =
 
@@ -73,6 +73,7 @@ OBJS		  = armor.o \
 		sticks.o \
 		things.o \
 		trader.o \
+		verify.o \
 		vers.o \
 		weapons.o \
 		wizard.o
@@ -120,6 +121,7 @@ SRCS		  = armor.c \
 		sticks.c \
 		things.c \
 		trader.c \
+		verify.c \
 		vers.c \
 		weapons.c \
 		wizard.c
@@ -189,5 +191,6 @@ status.o: rogue.h
 sticks.o: rogue.h
 things.o: rogue.h
 trader.o: rogue.h
+verify.o: rogue.h
 weapons.o: rogue.h
 wizard.o: rogue.h
