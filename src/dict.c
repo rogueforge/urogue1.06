@@ -56,13 +56,6 @@ static char sccsid[] = "%W% %G%";
 *************************************************************************/
 static unsigned long hash_string(const char *s)
 {
-#ifdef  TESTHASH
-        unsigned long   i;
-
-        for (i = 0; *s; s++)
-                i = (131 * i) + *s;
-        return i;
-#else
         unsigned long h = 0;
         unsigned long g;
 
@@ -73,7 +66,6 @@ static unsigned long hash_string(const char *s)
                         h ^= g >> 24;
         }
         return h ^ g;
-#endif
 }
 
 /*************************************************************************
@@ -334,7 +326,7 @@ STRING_ENTRY *dict_insert(DICTIONARY *dict, char *s,
 
         /* figure out which chain it should go into */
         hash_value = hash_string(s);
-        hash_index = hash_value % dict->hash_mask;
+        hash_index = hash_value & dict->hash_mask;
 
         /* look for the entry in the chain */
         for (he2 = dict->chains[hash_index], chain_len = 0; he2 != DICT_ENTRY_NONE;
@@ -411,7 +403,7 @@ STRING_ENTRY *dict_insert(DICTIONARY *dict, char *s,
 
                         /* recreate hash table entries by reinserting all strings */
                         for (i = 0; i < dict->entry_count; i++) {
-                                long    he = dict->string_table[i].hash_value % new_mask;
+                                long    he = dict->string_table[i].hash_value & new_mask;
 
                                 dict->string_table[i].next = hetemp[he];
                                 hetemp[he] = i;
@@ -518,7 +510,7 @@ STRING_ENTRY *dict_search(const DICTIONARY *dict, const char *s,
 
         /* figure out which chain it should be in */
         hash_value = hash_string(s);
-        hash_index = hash_value % dict->hash_mask;
+        hash_index = hash_value & dict->hash_mask;
 
         /* look for the entry in the chain */
         for (he = dict->chains[hash_index]; he != DICT_ENTRY_NONE;
@@ -789,16 +781,16 @@ STRING_ENTRY *dict_scan_next(DICTIONARY *dict)
 
         /* scan index has to be within range */
         if (dict->scan_string_index < 0
-                        || dict->scan_string_index > dict->string_max)
+                        || dict->scan_string_index > dict->entry_count)
                 return NULL;
 
         /* for first non-empty table entry */
-        while (dict->scan_string_index < dict->string_max
+        while (dict->scan_string_index < dict->entry_count
                         && dict->string_table[dict->scan_string_index].count == 0)
                 dict->scan_string_index++;
 
         /* past end of table? */
-        if (dict->scan_string_index >= dict->string_max)
+        if (dict->scan_string_index >= dict->entry_count)
                 return NULL;
 
         return &dict->string_table[dict->scan_string_index++];
