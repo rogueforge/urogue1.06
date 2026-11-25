@@ -210,6 +210,7 @@ void score(long amount, int lvl, int flags, int monst)
     char *killer;
     char buf[1024];
     struct rlimit lim;
+    sigset_t set, oset;
     static const char *reason[] =
     {
      "killed",
@@ -319,7 +320,18 @@ void score(long amount, int lvl, int flags, int monst)
 	    sc2 = scp;
 	}
     }
-    /* Leave the table alone if a limit on the size of a file cuts it short */
+    /*
+     * Leave the table alone if a limit on the size of a file cuts it
+     * short, and hold back the signals that would end the game while
+     * it is written
+     */
+
+    sigemptyset(&set);
+    sigaddset(&set, SIGINT);
+    sigaddset(&set, SIGHUP);
+    sigaddset(&set, SIGTERM);
+    sigaddset(&set, SIGQUIT);
+    sigprocmask(SIG_BLOCK, &set, &oset);
 
     if (sc2 != NULL &&
 	!(getrlimit(RLIMIT_FSIZE, &lim) == 0 && lim.rlim_cur < sizeof(top_ten))) {
@@ -330,6 +342,7 @@ void score(long amount, int lvl, int flags, int monst)
 
     fclose(fd_score);  /* which lets go of the lock */
     fd_score = NULL;
+    sigprocmask(SIG_SETMASK, &oset, NULL);
 
     if (flags != SCOREIT) {
 	clear();
