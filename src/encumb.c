@@ -84,7 +84,7 @@ int itemweight(struct object *wh)
     switch (wh->o_type) {
     case ARMOR:		/* 10% for each plus or minus */
 	ac = armors[wh->o_which].a_class - wh->o_ac;
-	weight *= (10 - ac) / 10;
+	weight = weight * (10 - ac) / 10;
 	break;
     case WEAPON:
 	if ((wh->o_hplus + wh->o_dplus) > 0)
