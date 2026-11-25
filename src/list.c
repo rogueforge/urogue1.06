@@ -13,6 +13,20 @@
 #include "rogue.h"
 
 static char errbuf[2 * LINELEN];
+
+/*
+ * The checked allocator in memory.c puts fences of its own around each
+ * block. It is used only in a build made with MEMCHECK; otherwise the
+ * game's storage comes straight from malloc().
+ */
+
+#ifdef MEMCHECK
+#define get_storage(n)	mem_malloc(n)
+#define give_storage(p)	mem_free(p)
+#else
+#define get_storage(n)	malloc(n)
+#define give_storage(p)	free(p)
+#endif
 /*
  * ur_alloc() ur_free() 
  *
@@ -27,7 +41,7 @@ void *ur_alloc(unsigned int size)
 
     total++;
 
-    buf_p = mem_malloc(size);
+    buf_p = get_storage(size);
 
     if (buf_p == NULL)
 	return (NULL);
@@ -39,7 +53,7 @@ void *ur_alloc(unsigned int size)
 
 void ur_free(void *buf_p)
 {
-    mem_free(buf_p);
+    give_storage(buf_p);
     total--;
 }
 
@@ -177,7 +191,7 @@ struct linked_list *new_list(void)
 	void *vptr;
     } newp;
 
-    newp.vptr = mem_malloc(sizeof(struct linked_list));
+    newp.vptr = get_storage(sizeof(struct linked_list));
     memset(newp.vptr, 0, sizeof(struct linked_list));
     return (newp.ll);
 }
