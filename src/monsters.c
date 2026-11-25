@@ -874,7 +874,7 @@ void id_monst(int monster)
 {
     int i;
 
-    for (i = 1; i <= nummonst + 2; i++)
+    for (i = 1; i <= nummonst + 1; i++)
 	if (monsters[i].m_appear == monster)
 	    add_line("A %s ", monsters[i].m_name);
     end_line();
