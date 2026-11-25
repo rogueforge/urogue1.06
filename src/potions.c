@@ -839,6 +839,7 @@ quaff(struct thing * quaffer, int            which,
 	    if (!is_wearing(R_REGEN))
 		msg("You feel %shealthier!", blessed ? "much " : "");
 	}
+	break;
 
     case P_SHIELD:
 	{
