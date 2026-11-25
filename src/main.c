@@ -121,7 +121,9 @@ int main(int argc, char *argv[])
 
     nm = getenv("USER");
 
-    if (nm != NULL)
+    if (whoami[0] != '\0')    /* the name option has named the hero */
+	;
+    else if (nm != NULL)
 	strcpy(whoami, nm);
     else
 	strcpy(whoami, "anonymous");
