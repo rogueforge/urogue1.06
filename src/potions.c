@@ -43,6 +43,7 @@ quaff(struct thing * quaffer, int            which,
 
 	if (obj->o_type != POTION) {
 	    msg("You can't drink that!");
+	    ur_free(item);
 	    return;
 	}
 	/* Calculate its effect */

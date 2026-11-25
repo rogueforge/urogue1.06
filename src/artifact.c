@@ -24,6 +24,7 @@ apply(void)
 	return;
 
     obj = OBJPTR(item);
+    ur_free(item);
     which = obj->o_which;
 
     if (!(obj->ar_flags & ISACTIVE)) {
@@ -1310,6 +1311,8 @@ do_bag(struct object * obj)
 
 		if (add_pack(item_p, MESSAGE) != FALSE)
 		    pop_bag(&obj->o_bag, obj_p);
+		else
+		    ur_free(item_p);
 	    }
 	}
 	break;

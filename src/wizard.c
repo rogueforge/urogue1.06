@@ -26,6 +26,10 @@ void whatis(struct linked_list *what)
 	while ((what = get_item("identify", 0)) == NULL);
     }
     obj = OBJPTR(what);
+
+    if (print_message)
+	ur_free(what);
+
     obj->o_flags |= ISKNOW;
 
     switch (obj->o_type) {

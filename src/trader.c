@@ -492,6 +492,7 @@ void sell_it(void)
 	msg("We don't buy those.");
 	if (is_wearing(R_ADORNMENT) && rnd(10) < 4)
 	    msg("How about that %s ring instead?", r_stones[R_ADORNMENT]);
+	ur_free(item);
 	return;
     }
 
@@ -509,6 +510,7 @@ void sell_it(void)
 	if (is_wearing(R_ADORNMENT))
 	    msg("How about that %s ring instead?",
 		r_stones[R_ADORNMENT]);
+	ur_free(item);
 	return;
     }
 

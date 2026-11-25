@@ -495,6 +495,7 @@ void do_zap(struct thing *zapper, int which, unsigned long flags)
 	}
 	if ((nitem = get_item("charge", STICK)) != NULL) {
 	    nobj = OBJPTR(nitem);
+	    ur_free(nitem);
 	    if ((nobj->o_charges == 0) && (nobj->o_which != WS_CHARGE)) {
 		fix_stick(nobj);
 		if (blessed)
