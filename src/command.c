@@ -1296,6 +1296,7 @@ call(int             mark)
     case STICK:
 	item_type = TYP_STICK;
 	item_color = ws_made;
+	break;
     default:
 	if (!mark) {
 	    msg("You can't call that anything.");
