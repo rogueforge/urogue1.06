@@ -15,6 +15,38 @@ static char sccsid[] = "%W% %G%";
 #include "rogue.h"
 
 /*
+ * mon_wants() does a monster want a thing it walks onto?
+ */
+
+static int mon_wants(struct thing *th, struct object *obj)
+{
+    return (on(*th, ISSCAVENGE) ||
+	    ((on(*th, CANWIELD) || on(*th, CANSHOOT)) && (obj->o_type == WEAPON || obj->o_type == ARMOR)) ||
+	    (on(*th, CANCAST) && is_magic(obj)));
+}
+
+/*
+ * mon_takes() put a thing taken off the floor in a monster's pack, with
+ * the rest of its group if the pack holds them
+ */
+
+static void mon_takes(struct thing *th, struct linked_list *item)
+{
+    struct object *obj = OBJPTR(item);
+    struct linked_list *mitem;
+
+    for (mitem = th->t_pack; mitem != NULL; mitem = next(mitem))
+	if (obj->o_group > 0 && (OBJPTR(mitem))->o_group == obj->o_group)
+	    break;
+
+    if (mitem != NULL) {
+	(OBJPTR(mitem))->o_count += obj->o_count;
+	discard(item);
+    } else
+	attach(th->t_pack, item);
+}
+
+/*
  * do_chase() Make one thing chase another. 
  */
 
@@ -184,30 +216,27 @@ void do_chase(struct thing *th, int flee)
     /* If we have a scavenger, it can pick something up */
 
     if ((item = find_obj(th->t_nxtpos.y, th->t_nxtpos.x)) != NULL) {
-	struct linked_list *node, *top = item;
-	struct object *obt;
+	struct object *head = OBJPTR(item);
+	struct linked_list *top, *node;
 
-	while (top) {		 /* grab all objects that qualify */
-	    obt = OBJPTR(top);
-	    node = obt->next_obj;
-	    if (on(*th, ISSCAVENGE) ||
-		((on(*th, CANWIELD) || on(*th, CANSHOOT)) && (obt->o_type == WEAPON || obt->o_type == ARMOR))
-		|| (on(*th, CANCAST) && is_magic(obt))) {
-		struct linked_list *mitem;
+	/*
+	 * A pile is the thing on top, in lvl_obj, with the rest in its
+	 * next_obj list.  Take what is wanted from under the top first, then
+	 * the top itself, which rem_obj() replaces with the next one down.
+	 */
 
-		rem_obj(top, FALSE);
+	for (top = head->next_obj; top != NULL; top = node) {
+	    node = next(top);
 
-		for (mitem = th->t_pack; mitem != NULL; mitem = next(mitem))
-		    if (obt->o_group > 0 && (OBJPTR(mitem))->o_group == obt->o_group)
-			break;
-
-		if (mitem != NULL) {
-		    (OBJPTR(mitem))->o_count += obt->o_count;
-		    discard(top);
-		} else
-		    attach(th->t_pack, top);
+	    if (mon_wants(th, OBJPTR(top))) {
+		detach(head->next_obj, top);
+		mon_takes(th, top);
 	    }
-	    top = node;
+	}
+
+	if (mon_wants(th, head)) {
+	    rem_obj(item, FALSE);
+	    mon_takes(th, item);
 	}
 	light(&hero);
     }
