@@ -19,6 +19,12 @@ static char sccsid[] = "%W% %G%";
 #include <stdlib.h>
 #include "rogue.h"
 
+/* Where the scores are kept, unless the build says otherwise */
+
+#ifndef SCOREFILE
+#define SCOREFILE "urogue.scr"
+#endif
+
 FILE *fd_score = NULL;
 
 /* Command line options */
@@ -63,7 +69,7 @@ int main(int argc, char *argv[])
 
     /* Get default score file */
 
-    strcpy(score_file, "urogue.scr");
+    strcpy(score_file, SCOREFILE);
 
     fd_score = fopen(score_file, "r+");
 
