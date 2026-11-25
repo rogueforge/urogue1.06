@@ -774,14 +774,18 @@ attack(struct thing * mp, struct object * weapon, int            thrown)
 
 	    if (on(*mp,STEALGOLD)) {
 		long lastpurse;
+		unsigned long   take;
 		struct linked_list *item;
 		struct object *obj;
 
 		lastpurse = purse;
-		purse = (purse > GOLDCALC) ? purse - (unsigned) GOLDCALC : 0L;
+		take = GOLDCALC;
+		purse = (purse > take) ? purse - take : 0L;
 
-		if (!save(VS_MAGIC))
-		    purse = (purse > (4 * GOLDCALC)) ? purse - (unsigned) (4 * GOLDCALC) : 0L;
+		if (!save(VS_MAGIC)) {
+		    take = 4 * GOLDCALC;
+		    purse = (purse > take) ? purse - take : 0L;
+		}
 
 		if (purse != lastpurse) {
 		    msg("Your purse feels lighter.");
