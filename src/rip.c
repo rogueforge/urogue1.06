@@ -14,6 +14,8 @@ static char sccsid[] = "%W% %G%";
 #include <stdlib.h>
 #include <ctype.h>
 #include <time.h>
+#include <fcntl.h>
+#include <unistd.h>
 #include "rogue.h"
 
 static struct sc_ent {
@@ -27,6 +29,7 @@ static struct sc_ent {
     short sc_monster;
 } top_ten[10];
 static void wait_return(void);
+static void hold_sc(int fd);
 
 static const char *rip[] =
 {
@@ -174,6 +177,30 @@ static void wait_return(void) {
 	if (c == ERR && cnt++ > 100)
 	    return;
 }
+/*
+    hold_sc()
+	Lock the score file while the table is read and written back.
+	The lock goes when the file is closed.  Anyone who can read the
+	file can hold a lock on it too, so try for a few seconds and
+	then go on without one.
+*/
+
+static void hold_sc(int fd) {
+    struct flock fl;
+    int tries;
+
+    fl.l_type = F_WRLCK;
+    fl.l_whence = SEEK_SET;
+    fl.l_start = 0;
+    fl.l_len = 0;
+
+    for (tries = 0; tries < 6; tries++) {
+	if (fcntl(fd, F_SETLK, &fl) == 0)
+	    return;
+
+	sleep(1);
+    }
+}
 
 void score(long amount, int lvl, int flags, int monst)
 {
@@ -229,6 +256,9 @@ void score(long amount, int lvl, int flags, int monst)
 	fflush(stdout);
 	wait_return();
     }
+    if (!waswizard && flags != SCOREIT)
+	hold_sc(fileno(fd_score));
+
     fseek(fd_score, 0L, SEEK_SET);
     fread(top_ten, sizeof(top_ten), 1, fd_score);
 
