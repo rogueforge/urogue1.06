@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
     char *seed;
     time_t lowtime;
     long now;
-    int rflag;
+    int rflag = FALSE;
     char *nm;
     float scale;
 
