@@ -1168,8 +1168,10 @@ void dip_it(void)
 	return;
     } else if (ob == cur_ring[LEFT_1] || ob == cur_ring[LEFT_2] ||
 	       ob == cur_ring[LEFT_3] || ob == cur_ring[LEFT_4] ||
+	       ob == cur_ring[LEFT_5] ||
 	       ob == cur_ring[RIGHT_1] || ob == cur_ring[RIGHT_2] ||
-	       ob == cur_ring[RIGHT_3] || ob == cur_ring[RIGHT_4]) {
+	       ob == cur_ring[RIGHT_3] || ob == cur_ring[RIGHT_4] ||
+	       ob == cur_ring[RIGHT_5]) {
 	msg("You have to take that ring off before you can dip it.");
 	return;
     }
