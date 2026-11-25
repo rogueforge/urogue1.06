@@ -1605,6 +1605,7 @@ extern int rnd_room(void);
 extern int restore(char *file);
 extern int save_game(void);
 extern void save_file(FILE *savefd);
+extern void auto_save(void);
 
 /*scrolls.c */
 

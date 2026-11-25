@@ -118,11 +118,15 @@ void doadd(const char *fmt, va_list ap)
 
 char readchar(void)
 {
-    int c;
+    int c, cnt = 0;
 
     fflush(stdout);
     noecho();
-    c = getch();
+
+    while ((c = getch()) == ERR)
+	if (cnt++ > 100)    /* input has ended */
+	    auto_save();
+
     return (c & 0177);
 }
 
