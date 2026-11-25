@@ -31,6 +31,7 @@ void swap_top(struct linked_list *top, struct linked_list *node)
 
     if (obn->next_obj = obt->next_obj)
 	obn->next_obj->l_prev = NULL;
+    obt->next_obj = NULL;
 
     attach((obn->next_obj), top);
 }
