@@ -188,13 +188,11 @@ void do_chase(struct thing *th, int flee)
 	struct object *obt;
 
 	while (top) {		 /* grab all objects that qualify */
-	    struct object *obj = OBJPTR(item);
-
 	    obt = OBJPTR(top);
 	    node = obt->next_obj;
 	    if (on(*th, ISSCAVENGE) ||
-		((on(*th, CANWIELD) || on(*th, CANSHOOT)) && (obj->o_type == WEAPON || obj->o_type == ARMOR))
-		|| (on(*th, CANCAST) && is_magic(obj))) {
+		((on(*th, CANWIELD) || on(*th, CANSHOOT)) && (obt->o_type == WEAPON || obt->o_type == ARMOR))
+		|| (on(*th, CANCAST) && is_magic(obt))) {
 		struct linked_list *mitem;
 
 		rem_obj(top, FALSE);
