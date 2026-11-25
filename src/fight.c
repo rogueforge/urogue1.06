@@ -1617,6 +1617,7 @@ void remove_monster(coord *mp, struct linked_list *item)
 
     if (cansee(mp->y, mp->x))
 	mvwaddch(cw, mp->y, mp->x, ch);
+    free_list(tp->t_pack);
 
     detach(mlist, item);
     discard(item);
