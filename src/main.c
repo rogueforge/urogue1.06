@@ -175,8 +175,10 @@ int main(int argc, char *argv[])
     else
 	printf("Hello %s, just a moment while I dig the dungeon...", whoami);
 
+#ifdef MEMCHECK
     mem_debug(2);
     mem_tracking(1);
+#endif
 
     fflush(stdout);
 
