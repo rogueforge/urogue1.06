@@ -912,7 +912,7 @@ int mon_mon_attack(struct thing *attacker, struct linked_list *mon, struct objec
     /* Similar monsters don't hit each other */
 
     if (attacker->t_index == attackee->t_index) {
-	if (attacker == THINGPTR(fam_ptr) && er_visible)
+	if (fam_ptr != NULL && attacker == THINGPTR(fam_ptr) && er_visible)
 	    msg("Master, I cannot hit one of my brethren.");
         if (!thrown && rnd(100) - attacker->t_stats.s_charisma + luck < 0) {
 	    if (er_visible)

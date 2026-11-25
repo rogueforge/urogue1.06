@@ -1327,7 +1327,7 @@ void shoot_bolt(struct thing *shooter, coord start, coord dir, int get_points,
     }
 
     if (take_that[BOLT_LENGTH] != 0) {
-	if (tp != THINGPTR(fam_ptr)) {
+	if (fam_ptr == NULL || tp != THINGPTR(fam_ptr)) {
 	    msg("You are hit by the %s.", name);
 	    if ((pstats.s_hpt -= take_that[BOLT_LENGTH]) <= 0) {
 		death(reason);
@@ -1384,7 +1384,8 @@ void monster_do_zap(struct thing *zapper, int which, int flags)
 		int see_it = cansee(bolt.o_pos.y, bolt.o_pos.x);
 
 		if ((tp->t_stats.s_hpt -= damage) <= 0)
-		    killed(zapper, item, see_it, (zapper == THINGPTR(fam_ptr)));
+		    killed(zapper, item, see_it,
+			   (fam_ptr != NULL && zapper == THINGPTR(fam_ptr)));
 		else if (see_it)
 		    msg("The %s hits the monster.", bolt_name);
 	    }
@@ -1430,7 +1431,7 @@ void monster_do_zap(struct thing *zapper, int which, int flags)
 
 	damage = roll(ndice, nsides);
 	shoot_bolt(zapper, zapper->t_pos, delta,
-		   (zapper == THINGPTR(fam_ptr)), D_BOLT, bolt_name, damage);
+		   (fam_ptr != NULL && zapper == THINGPTR(fam_ptr)), D_BOLT, bolt_name, damage);
     }
 }
 
