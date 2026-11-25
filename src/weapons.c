@@ -93,8 +93,10 @@ void missile(int ydelta, int xdelta, struct linked_list *item, struct thing *tp)
 	    msg(" vanishes in a puff of greasy smoke.");
 	    discard(item);
 	} else {
+	    unsigned long flags = obj->o_flags;
+
 	    fall(&player, item, TRUE, TRUE);
-	    if (obj->o_flags & CANRETURN)
+	    if (flags & CANRETURN)
 		msg("You have %s.", inv_name(obj, LOWERCASE));
 	}
     } else if (obj->o_flags & ISOWNED) {
