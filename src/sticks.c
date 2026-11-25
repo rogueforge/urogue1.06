@@ -656,8 +656,10 @@ void do_zap(struct thing *zapper, int which, unsigned long flags)
 			if ((mons_hpt -= hpt_gain) <= 0) {
 			    seemsg("The %s shrivels up and dies!", mname);
 			    killed(&player, item, NOMESSAGE, POINTS);
-			} else
+			} else {
+			    tp->t_stats.s_hpt = mons_hpt;
 			    seemsg("Wounds appear all over the %s.", mname);
+			}
 		    } else
 			nothing_message(flags);
 		    delta.y = y;
@@ -667,6 +669,7 @@ void do_zap(struct thing *zapper, int which, unsigned long flags)
 		    if (is_stick)
 			know_items[TYP_STICK][which] = TRUE;
 		    mons_hpt = min(mons_hpt + hpt_gain, tp->maxstats.s_hpt);
+		    tp->t_stats.s_hpt = mons_hpt;
 		    seemsg("The %s appears less wounded!", mname);
 		}
 	    } else
