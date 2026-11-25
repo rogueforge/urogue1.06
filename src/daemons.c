@@ -193,7 +193,7 @@ void doctor_spell_points(struct thing *tp)
  * rollwand() called to roll to see if a wandering monster starts up 
  */
 
-daemon rollwand(daemon_arg *arg)
+daemon_t rollwand(daemon_arg *arg)
 {
     /* Thieves (only) may not waken a monster */
     if ((rnd(6) == 0) && (player.t_ctype != C_THIEF || (rnd(30) >= pstats.s_dext))) {
@@ -208,7 +208,7 @@ daemon rollwand(daemon_arg *arg)
  * stomach() digest the hero's food 
  */
 
-daemon stomach(daemon_arg *arg)
+daemon_t stomach(daemon_arg *arg)
 {
     int oldfood, old_hunger;
     int amount;
@@ -271,7 +271,7 @@ daemon stomach(daemon_arg *arg)
  * each other, this routine have been enhanced and may need more work yet 
  */
 
-daemon runners(daemon_arg *arg)
+daemon_t runners(daemon_arg *arg)
 {
     struct linked_list *item;
     struct thing *tp;

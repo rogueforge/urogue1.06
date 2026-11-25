@@ -1010,7 +1010,7 @@ extern int demoncnt;
 #define FUSE  2
 
 typedef void fuse;
-typedef void daemon;
+typedef void daemon_t;
 typedef union {
   void      *varg;
   int      *iarg;
@@ -1026,7 +1026,7 @@ typedef union {
 struct delayed_action {
     int d_type;
     int d_when;
-     daemon(*d_daemon) (daemon_arg * arg);
+     daemon_t(*d_daemon) (daemon_arg * arg);
      fuse(*d_fuse) (fuse_arg * arg);
     void *d_arg;
     int d_time;
@@ -1037,8 +1037,8 @@ struct delayed_action {
 extern struct delayed_action d_list[MAXDAEMONS];
 extern struct delayed_action *d_slot(void);
 extern struct delayed_action *find_slot(fuse (*func)(fuse_arg *arg));
-extern void start_daemon(daemon (*func)(daemon_arg *arg), void *arg, int whendo);
-extern void kill_daemon(daemon (*func)(daemon_arg *arg));
+extern void start_daemon(daemon_t (*func)(daemon_arg *arg), void *arg, int whendo);
+extern void kill_daemon(daemon_t (*func)(daemon_arg *arg));
 extern void do_daemons(int now);
 extern void light_fuse(fuse (*func)(fuse_arg *arg), void *arg, int time, int whendo);
 extern void lengthen_fuse(fuse (*func)(fuse_arg *arg), int xtime);
@@ -1048,10 +1048,10 @@ extern void activity(void);
 
 /* daemons.c */
 extern void doctor_spell_points(struct thing *tp);
-extern daemon runners(daemon_arg *arg);
-extern daemon doctor(daemon_arg *tp);
-extern daemon rollwand(daemon_arg *arg);
-extern daemon stomach(daemon_arg *arg);
+extern daemon_t runners(daemon_arg *arg);
+extern daemon_t doctor(daemon_arg *tp);
+extern daemon_t rollwand(daemon_arg *arg);
+extern daemon_t stomach(daemon_arg *arg);
 extern fuse swander(fuse_arg *arg);
 extern fuse unconfuse(fuse_arg *arg);
 extern fuse unscent(fuse_arg *arg);

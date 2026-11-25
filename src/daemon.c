@@ -55,7 +55,7 @@ struct delayed_action *find_slot(fuse(*func) (fuse_arg *arg))
    Start a daemon, takes a function.
  */
 
-void start_daemon(daemon(*func) (daemon_arg *arg), void *arg, int whendo)
+void start_daemon(daemon_t(*func) (daemon_arg *arg), void *arg, int whendo)
 {
     struct delayed_action *dev;
 
@@ -76,7 +76,7 @@ void start_daemon(daemon(*func) (daemon_arg *arg), void *arg, int whendo)
    Remove a daemon from the list
  */
 
-void kill_daemon(daemon(*func) (daemon_arg *arg))
+void kill_daemon(daemon_t(*func) (daemon_arg *arg))
 {
     int i;
     struct delayed_action *dev;
