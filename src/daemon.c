@@ -209,7 +209,7 @@ void do_fuses(int now)
 
 void activity(void)
 {
-    msg("Daemons = %d : Memory Items = %d ", demoncnt, total);
+    msg("Daemons = %d : Memory Items = %lu ", demoncnt, total);
     return;
 }
 

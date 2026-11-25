@@ -148,7 +148,7 @@ void status(int display)
     mvwaddstr(cw, LINES - 2, 0, buf);
     wclrtoeol(cw);
 
-    sprintf(buf, "Lvl:%d Au:%d Hpt:%3d(%3d) Pow:%d(%d) Ac:%d  Exp:%d+%ld  %s",
+    sprintf(buf, "Lvl:%d Au:%lu Hpt:%3ld(%3ld) Pow:%d(%d) Ac:%d  Exp:%d+%ld  %s",
 	    level, purse, stat_ptr->s_hpt, max_ptr->s_hpt, stat_ptr->s_power, max_ptr->s_power,
 	    (cur_armor != NULL ? (cur_armor->o_ac - 10 + stat_ptr->s_arm) : stat_ptr->s_arm) - ring_value(R_PROTECT),
 	    stat_ptr->s_lvl, stat_ptr->s_exp, cnames[player.t_ctype][min(stat_ptr->s_lvl - 1, 14)]);

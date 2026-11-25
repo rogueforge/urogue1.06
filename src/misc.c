@@ -966,7 +966,7 @@ electrificate(void)
 
 	if (DISTANCE(tp->t_pos, hero) < affect_dist) {
 	    int             damage = roll(2, player.t_stats.s_lvl);
-	    debug("Charge does %d (%d)", damage, tp->t_stats.s_hpt - damage);
+	    debug("Charge does %d (%ld)", damage, tp->t_stats.s_hpt - damage);
 
 	    if (on(*tp, NOBOLT))
 		continue;

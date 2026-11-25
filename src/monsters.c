@@ -1215,7 +1215,7 @@ void sell(struct thing *tp)
 	waddstr(hw, buffer);
     }
 
-    sprintf(buffer, "Purse:  %d", purse);
+    sprintf(buffer, "Purse:  %lu", purse);
     mvwaddstr(hw, nitems + 3, 0, buffer);
     mvwaddstr(hw, 0, 0, "How about one of the following goods? ");
     wrefresh(hw);

@@ -262,8 +262,8 @@ void score(long amount, int lvl, int flags, int monst)
 	if (scp->sc_score) {
 	    char lev[20];
 
-	    sprintf(lev, "%ld+%ld", scp->sc_lvl, scp->sc_score);
-	    printf("%4d %15s %10ld %s: ", scp - top_ten + 1, lev, scp->sc_gold, scp->sc_name);
+	    sprintf(lev, "%d+%ld", scp->sc_lvl, scp->sc_score);
+	    printf("%4d %15s %10ld %s: ", (int) (scp - top_ten + 1), lev, scp->sc_gold, scp->sc_name);
 
 	    if (scp->sc_artifacts) {
 		char thangs[80];
@@ -545,7 +545,7 @@ void showpack(char *howso)
 	}
     }
     mvprintw(cnt + 1, 0, "Carrying %d gold pieces", oldpurse);
-    mvprintw(cnt + 2, 0, "Carrying objects worth %d gold pieces", purse);
+    mvprintw(cnt + 2, 0, "Carrying objects worth %lu gold pieces", purse);
     purse += oldpurse;
     refresh();
 }
