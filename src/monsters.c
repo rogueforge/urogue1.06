@@ -504,7 +504,7 @@ void new_monster(struct linked_list *item, int type, coord *cp, int max_monster)
 
 void wanderer(void)
 {
-    int i, cnt = 0;
+    int i, cnt = 0, tries = 0;
     struct room *hr = roomin(hero);
     struct linked_list *item;
     struct thing *tp;
@@ -515,6 +515,9 @@ void wanderer(void)
     /* Find a place for it -- avoid the player's room */
 
     do {
+	if (tries++ >= 500)
+	    return;
+
 	do {
 	    cnt++;
 	    i = rnd_room();
