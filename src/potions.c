@@ -523,7 +523,7 @@ quaff(struct thing * quaffer, int            which,
 		extinguish_fuse(unscent);
 		msg("You no longer smell monsters around you.");
 	    } else if (on(player, ISUNSMELL)) {
-		lengthen_fuse(unscent, PHASEDURATION);
+		lengthen_fuse(scent, PHASEDURATION);
 		msg("You feel your nose tingle.");
 	    } else {
 		turn_on(player, ISUNSMELL);
