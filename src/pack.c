@@ -64,7 +64,7 @@ void get_all(struct linked_list *top)
 struct linked_list *get_stack(struct linked_list *item)
 {
     struct object *obj;
-    char buf[2 * LINELEN];
+    char    buf[4 * LINELEN + 8];
     int i = 0, j;
     struct linked_list *ll;
 

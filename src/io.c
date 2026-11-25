@@ -13,7 +13,7 @@ static char sccsid[] = "%W% %G%";
 #include <stdarg.h>
 #include "rogue.h"
 
-char prbuf[2 * LINELEN];		/* Buffer for sprintfs			*/
+char prbuf[4 * LINELEN];    /* Buffer for sprintfs                      */
 static char mbuf[2 * LINELEN];		/* Current message buffer		*/
 static int newpos = 0;			/* index in mbuf to end of msg		*/
 int mpos = 0;				/* 0 = Overwrite existing message	*/
