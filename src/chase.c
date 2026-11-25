@@ -985,7 +985,7 @@ struct linked_list *get_hurl(struct thing *tp)
 		oil = pitem;
 		break;
 	    case GRENADE:
-		shuriken = pitem;
+		grenade = pitem;
 		break;
 	    }
 
