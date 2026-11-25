@@ -103,6 +103,8 @@ void missile(int ydelta, int xdelta, struct linked_list *item, struct thing *tp)
 	add_pack(item, NOMESSAGE);
 	msg("You have %s.", inv_name(obj, LOWERCASE));
     }
+    else
+	discard(item);
     mvwaddch(cw, hero.y, hero.x, PLAYER);
 }
 
