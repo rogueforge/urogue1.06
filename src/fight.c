@@ -334,7 +334,8 @@ fight(coord * mp, struct object * weap, int            thrown)
 		turn_off(*tp, DIDHOLD);
 
 		if (on(*tp, CANTELEPORT)) {
-		    int             rm;
+		    int rm, cnt = 0;
+		    coord opos;
 		    /*
 		     * Erase the monster from the old position 
 		     */
@@ -346,12 +347,17 @@ fight(coord * mp, struct object * weap, int            thrown)
 
 		    /* Get a new position */
 
+		    opos = tp->t_pos;
+
 		    do {
 			rm = rnd_room();
 			rnd_pos(&rooms[rm], &tp->t_pos);
 		    }
-		    while (winat(tp->t_pos.y, tp->t_pos.x) != FLOOR ||
-			ce(tp->t_pos, hero));
+		    while ((winat(tp->t_pos.y, tp->t_pos.x) != FLOOR ||
+			ce(tp->t_pos, hero)) && ++cnt <= 500);
+
+		    if (cnt > 500)
+			tp->t_pos = opos;
 
 		    /* Put it there */
 

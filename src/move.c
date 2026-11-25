@@ -810,7 +810,8 @@ int be_trapped(struct thing *th, coord tc)
 	    } else
 		msg("You feel dizzy for a moment, but it quickly passes.");
 	} else {
-	    int rm;
+	    int rm, cnt = 0;
+	    coord opos;
 
 	    /* Erase the monster from the old position */
 	    if (isalpha(mvwinch(cw, th->t_pos.y, th->t_pos.x)))
@@ -819,12 +820,17 @@ int be_trapped(struct thing *th, coord tc)
 
 	    /* Get a new position */
 
+	    opos = th->t_pos;
+
 	    do {
 		rm = rnd_room();
 		rnd_pos(&rooms[rm], &th->t_pos);
 	    }
-	    while(winat(th->t_pos.y, th->t_pos.x) != FLOOR ||
-		ce(th->t_pos, hero));
+	    while((winat(th->t_pos.y, th->t_pos.x) != FLOOR ||
+		ce(th->t_pos, hero)) && ++cnt <= 500);
+
+	    if (cnt > 500)
+		th->t_pos = opos;
 
 	    /* Put it there */
 
