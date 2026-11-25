@@ -1040,7 +1040,7 @@ struct object *pick_weap(struct thing *tp)
     if (on(*tp, CANWIELD)) {
 	for (pitem = tp->t_pack; pitem != NULL; pitem = next(pitem)) {
 	    struct object  *obj = OBJPTR(pitem);
-	    if (obj->o_type != WEAPON && !(obj->o_flags & (ISLAUNCHER | ISMISL)) && maxdamage(obj->o_damage) > weap_dam) {
+	    if (obj->o_type == WEAPON && !(obj->o_flags&(ISLAUNCHER|ISMISL)) && maxdamage(obj->o_damage) > weap_dam) {
 		weap_dam = maxdamage(obj->o_damage);
 		ret_obj = obj;
 	    }
