@@ -259,7 +259,7 @@ int baf_print_item(struct object *obj_p, bag_arg *type, int id)
 	sprintf(inv_temp, "%c) %s", print_letters[id],
 		inv_name(obj_p, LOWERCASE), FALSE);
 
-    add_line(inv_temp);
+    add_line("%s", inv_temp);
     return (TRUE);
 }
 

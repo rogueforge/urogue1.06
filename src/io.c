@@ -272,7 +272,7 @@ void add_line(const char *fmt, ...)
 	    static char tmpbuf[1024];
 
 	    vsprintf(tmpbuf, fmt, ap);
-	    mvwprintw(hw, line_cnt++, 0, tmpbuf);
+	    mvwprintw(hw, line_cnt++, 0, "%s", tmpbuf);
 	}
     }
 }
