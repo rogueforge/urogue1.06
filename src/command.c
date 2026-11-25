@@ -723,7 +723,7 @@ do_after_effects(void)
 	    pstats.s_power = max_stats.s_power += rnd(pstats.s_lvl) + 1;
 	} else {		/* he blew it - make him pay */
 
-	    int             death_cause;
+	    int death_cause = D_CLUMSY;
 	    switch (player.t_ctype) {
 	    case C_CLERIC:
 	    case C_DRUID:
