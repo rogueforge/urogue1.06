@@ -307,8 +307,7 @@ void score(long amount, int lvl, int flags, int monst)
 	}
 
 	if (scp < &top_ten[10]) {
-	    if (flags == WINNER)
-		sc2 = &top_ten[9];	/* LAST WINNER ALWAYS MAKES IT */
+	    sc2 = &top_ten[9];	/* the last entry makes room */
 	    while (sc2 > scp) {
 		*sc2 = sc2[-1];
 		sc2--;
