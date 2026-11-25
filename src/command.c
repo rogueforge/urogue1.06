@@ -1310,10 +1310,6 @@ call(int             mark)
     } else {
 	msg("Was called \"%s\".", elsewise);
 	msg("What do you want to call it? ");
-
-	if (guess_items[item_type][obj->o_which] != NULL)
-	    ur_free(guess_items[item_type][obj->o_which]);
-
 	strcpy(prbuf, elsewise);
     }
 
@@ -1322,6 +1318,9 @@ call(int             mark)
 	    strncpy(obj->o_mark, prbuf, MARKLEN - 1);
 	    obj->o_mark[MARKLEN - 1] = '\0';
 	} else {
+	    if (guess_items[item_type][obj->o_which] != NULL)
+		ur_free(guess_items[item_type][obj->o_which]);
+
 	    guess_items[item_type][obj->o_which] = new(strlen(prbuf) + 1);
 	    strcpy(guess_items[item_type][obj->o_which], prbuf);
 	}
