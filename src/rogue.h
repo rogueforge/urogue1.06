@@ -78,7 +78,8 @@ extern char *rg_strdup(const char *s);
 #define next(ptr) ((ptr)?(ptr->l_next):NULL)
 #define prev(ptr) ((ptr)?(ptr->l_prev):NULL)
 #define identifier(ptr) (ptr->o_ident)
-#define winat(y,x) ( (char)((mvwinch(mw,y,x) == ' ') ? mvwinch(stdscr,y,x) : winch(mw)) )
+#define winat(y,x) ( (char)(((y) < 0 || (y) >= LINES || (x) < 0 || (x) >= COLS) ? ' ' : \
+ (mvwinch(mw,y,x) == ' ') ? mvwinch(stdscr,y,x) : winch(mw)) )
 #define debug if (wizard && wiz_verbose) msg
 #define verify(b) if (b) verify_function(__FILE__, __LINE__)
 #define DISTANCE(c1, c2) ( ((c2).x - (c1).x)*((c2).x - (c1).x) + ((c2).y - (c1).y)*((c2).y - (c1).y) )
