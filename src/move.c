@@ -233,6 +233,7 @@ void do_move(int dy, int dx)
 		turn_off(player, ISHELD);
 	} else {
 	    msg("You are being held.");
+	    running = FALSE;
 	    return;
 	}
     }
