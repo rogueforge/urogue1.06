@@ -23,8 +23,7 @@ prayer(void)
     int             chance,
                     i,
                     times;
-    char            ch,
-                    num_str[20];
+    char    ch, num_str[2 * LINELEN];
     struct linked_list *item;
     struct thing   *tp;
     int             is_godly;
