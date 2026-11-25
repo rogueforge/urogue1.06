@@ -16,7 +16,7 @@ new_level(LEVTYPE ltype)
     struct linked_list *item,
                    *nitem;
     struct thing   *tp;
-    struct linked_list *fpack;
+    struct linked_list  *fpack = NULL;
     int             going_down = TRUE;
     coord           stairs;
     /* Start player off right */
