@@ -871,6 +871,10 @@ attack(struct thing * mp, struct object * weapon, int            thrown)
 		    } else {
 			msg("The %s stole %s!", mname, inv_name(newobj, LOWERCASE));
 			newobj->o_flags &= ~ISCURSED;
+
+			if (newobj == cur_armor)
+			    cur_armor = NULL;
+
 			dropcheck(newobj);
 			rem_pack(newobj);
 			stealit = make_item(newobj);
