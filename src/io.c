@@ -11,6 +11,8 @@ static char sccsid[] = "%W% %G%";
 #include <string.h>
 #include <ctype.h>
 #include <stdarg.h>
+#include <errno.h>
+#include <fcntl.h>
 #include "rogue.h"
 
 char prbuf[4 * LINELEN];    /* Buffer for sprintfs                      */
@@ -123,9 +125,11 @@ char readchar(void)
     fflush(stdout);
     noecho();
 
-    while ((c = getch()) == ERR)
+    for (errno = 0; (c = getch()) == ERR; errno = 0)
 	if (cnt++ > 100)    /* input has ended */
 	    auto_save();
+	else if (errno == EAGAIN)   /* a terminal left not to wait */
+	    fcntl(0, F_SETFL, fcntl(0, F_GETFL, 0) & ~O_NONBLOCK);
 
     return (c & 0177);
 }
