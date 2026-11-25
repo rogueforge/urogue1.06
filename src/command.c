@@ -1047,7 +1047,7 @@ help(void)
 
 	if (++cnt >= 46 && strp->h_ch && (strp->h_desc != NULL || wizard)) {
 	    wmove(hw, LINES - 1, 0);
-	    wprintw(hw, morestr);
+	    wprintw(hw, "%s", morestr);
 	    wrefresh(hw);
 	    wait_for(' ');
 	    wclear(hw);
@@ -1056,7 +1056,7 @@ help(void)
     }
 
     wmove(hw, LINES - 1, 0);
-    wprintw(hw, morestr);
+    wprintw(hw, "%s", morestr);
     wrefresh(hw);
     wait_for(' ');
     wclear(hw);

@@ -92,11 +92,11 @@ void endmsg(void)
 
     if (mpos) {
 	wmove(cw, 0, mpos);
-	wprintw(cw, morestr);
+	wprintw(cw, "%s", morestr);
 	wrefresh(cw);
 	wait_for(' ');
     }
-    mvwprintw(cw, 0, 0, mbuf);
+    mvwprintw(cw, 0, 0, "%s", mbuf);
     wclrtoeol(cw);
 
     mpos = newpos;
