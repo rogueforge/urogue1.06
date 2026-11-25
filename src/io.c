@@ -88,7 +88,7 @@ void addmsg(const char *fmt, ...)
 void endmsg(void)
 {
     strcpy(msgbuf[msg_index], mbuf);
-    msg_index = ++msg_index % 10;
+    msg_index = (msg_index + 1) % 10;
 
     if (mpos) {
 	wmove(cw, 0, mpos);
