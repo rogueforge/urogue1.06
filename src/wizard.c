@@ -57,7 +57,7 @@ void whatis(struct linked_list *what)
 	}
     }
     if (print_message)
-	msg(inv_name(obj, UPPERCASE));
+	msg("%s", inv_name(obj, UPPERCASE));
 }
 
 /*
