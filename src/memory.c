@@ -377,7 +377,7 @@ int mem_validate(void *ptr)
 
 
 	for (i = 0; i < FENCE_SIZE - sizeof(size_t); i++)
-		if (*mem_temp++ != 145) {
+		if ((unsigned char) *mem_temp++ != 145) {
 			if (memdebug_level > 0) {
 				fprintf(trace_file, "!!! The user pointer at %p has been overwritten\n", ptr);
 				fprintf(trace_file, "!!! Header offset %ld has been changed\n", i - 1);
@@ -395,7 +395,7 @@ int mem_validate(void *ptr)
 	/* now point to where trailer should be */
 	mem_temp = (char *)ptr + i;
 	for (i = 0; i < FENCE_SIZE; i++)
-		if (*mem_temp++ != 145) {
+		if ((unsigned char) *mem_temp++ != 145) {
 			if (memdebug_level > 0) {
 				fprintf(trace_file, "!!! The user pointer at %p has been overwritten\n", ptr);
 				fprintf(trace_file, "!!! Trailer offset %ld has been changed\n", i - 1);
