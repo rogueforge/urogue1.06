@@ -274,7 +274,7 @@ fight(coord * mp, struct object * weap, int            thrown)
 		    else {
 			msg("Your armor shatters from the shriek.");
 			cur_armor = NULL;
-			del_pack(itm);
+			discard_pack(obj);
 		    }
 		}
 	    }
@@ -457,7 +457,7 @@ attack(struct thing * mp, struct object * weapon, int            thrown)
 		    else {
 			msg("Your armor is shattered by the blow.");
 			cur_armor = NULL;
-			del_pack(item);
+			discard_pack(obj);
 		    }
 		} else if (rnd(mp->t_stats.s_str) > 15) {
 		    msg("Your armor rings from the blow.");
@@ -863,6 +863,7 @@ attack(struct thing * mp, struct object * weapon, int            thrown)
 			newobj->o_flags &= ~ISCURSED;
 			dropcheck(newobj);
 			rem_pack(newobj);
+			stealit = make_item(newobj);
 			attach(mp->t_pack, stealit);
 			if (newobj->o_type == ARTIFACT)
 			    has_artifact &= ~(1 << newobj->o_which);
