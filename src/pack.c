@@ -525,7 +525,7 @@ void show_floor(void)
 	else if (obj->o_type == GOLD)
 	    msg("%d gold pieces.", obj->o_count);
 	else {
-	    addmsg(inv_name(obj, TRUE));
+	    addmsg("%s", inv_name(obj, TRUE));
 	    addmsg(".");
 	    endmsg();
 	}
