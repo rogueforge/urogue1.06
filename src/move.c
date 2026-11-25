@@ -1358,7 +1358,7 @@ void set_trap(struct thing *tp, int y, int x)
 	end_line();
 	msg("Which trap? ");
 
-	selection = (short) ((getchar() & 0177) - '0');
+	selection = (short) (readchar() - '0');
 
 	while (selection < 1 || selection > 7) {
 	    if (selection == (short) ESCAPE - (short) '0') {
@@ -1367,7 +1367,7 @@ void set_trap(struct thing *tp, int y, int x)
 	    }
 	    msg("");
 	    msg("Please enter a selection between 1 and 7:  ");
-	    selection = (short) ((getchar() & 0177) - '0');
+	    selection = (short) (readchar() - '0');
 	}
     }
 

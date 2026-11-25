@@ -45,7 +45,7 @@ int geta_player(void)
     mvwaddstr(hw, 0, 0, "Do you wish to select a character? ");
     wrefresh(hw);
 
-    if ((getchar() & 0177) != 'y')
+    if (readchar() != 'y')
 	return FALSE;
 
     do {
@@ -115,7 +115,7 @@ void puta_player(void)
     wclrtoeol(hw);
     wrefresh(hw);
 
-    if ((getchar() & 0177) != 'y')
+    if (readchar() != 'y')
 	return;
 
     do {

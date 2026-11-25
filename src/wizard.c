@@ -79,7 +79,7 @@ void teleport(void)
 	wmove(cw, hero.y, hero.x);
 	touchwin(cw);
 	wrefresh(cw);
-	which = (short) (getchar() & 0177);
+	which = (short) readchar();
 	while (which != (short) ESCAPE && which != (short) LINEFEED && which != (short) CARRIAGE_RETURN) {
 	    switch (which) {
 	    case 'h':
@@ -122,7 +122,7 @@ void teleport(void)
 	    wmove(cw, c.y, c.x);
 	    touchwin(cw);
 	    wrefresh(cw);
-	    which = (short) (getchar() & 0177);
+	    which = (short) readchar();
 	}
 
 	which = winat(c.y, c.x);
@@ -202,7 +202,7 @@ int passwd(void)
     mpos = 0;
     sp = buf;
 
-    while ((c = (getchar() & 0177)) != '\n' && c != '\r' && c != '\033') {
+    while ((c = readchar()) != '\n' && c != '\r' && c != '\033') {
 	if (c == '\0')
 	    sp = buf;
 	else if (c == '\b' && sp > buf)
