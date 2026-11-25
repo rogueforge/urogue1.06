@@ -367,7 +367,8 @@ void incant(struct thing *caster, coord dir)
     }
 
     /* casting costs food energy.... */
-    food_left -= sp->sp_cost;
+    if (is_player)
+	food_left -= sp->sp_cost;
 
     spell_roll = rnd(100);
     debug("%s(%d) cast '%s' fumble %%%d (rolled %d) ", monsters[caster->t_index].m_name,
