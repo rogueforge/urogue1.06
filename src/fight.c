@@ -1605,6 +1605,10 @@ void remove_monster(coord *mp, struct linked_list *item)
 {
     struct thing   *tp = THINGPTR(item);
     char            ch = tp->t_oldch;
+    if (item == curr_mons)  /* flag monster as gone for do_chase() */
+	curr_mons = NULL;
+    else if (item == next_mons)
+	next_mons = next(next_mons);
 
     mvwaddch(mw, mp->y, mp->x, (char) ' ');
     if ((int) ch < 33 || ch == ' ')

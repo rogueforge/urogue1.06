@@ -272,6 +272,9 @@ void do_chase(struct thing *th, int flee)
 	    th->t_oldch = sch;
 
 	be_trapped(th, th->t_nxtpos);
+
+	if (!curr_mons)
+	    return;
     }
     /* And stop running if need be */
 
