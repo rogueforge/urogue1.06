@@ -139,7 +139,12 @@ int save_game(void)
 
     /* write out [compressed?] file */
 
-    save_file(savefd);
+    if (!save_file(savefd)) {
+	unlink(file_name);
+	msg("Could not save the game: %s", strerror(errno));
+	return(FALSE);
+    }
+
     return (TRUE);
 }
 /*
@@ -175,9 +180,10 @@ save_open(void) {
    what the windows hold and stamps that tell this build from others
  */
 
-void save_file(FILE *savefd)
+int save_file(FILE *savefd)
 {
     int fd = fileno(savefd);
+    int ok;
 
     wmove(cw, LINES - 1, 0);
     wrefresh(cw);
@@ -187,9 +193,10 @@ void save_file(FILE *savefd)
     save_wins(FALSE);
     save_stamp[0] = (long) main - (long) version;
     save_stamp[1] = (long) rg_restored - (long) __executable_start;
-    encwrite(version, rg_edata - version, fd);
-    encwrite(rg_bss, rg_ebss - rg_bss, fd);
-    fclose(savefd);
+    ok = encwrite(version, rg_edata - version, fd) &&
+	encwrite(rg_bss, rg_ebss - rg_bss, fd);
+
+    return(fclose(savefd) == 0 && ok);
 }
 /*
     auto_save()
@@ -201,8 +208,8 @@ void auto_save(void) {
     FILE *savefd;
 
     if (file_name[0] != '\0' && save_ok() &&
-	(savefd = save_open()) != NULL)
-	save_file(savefd);
+	(savefd = save_open()) != NULL && !save_file(savefd))
+	unlink(file_name);
 
     endwin();
     exit(1);
@@ -409,8 +416,9 @@ NOCHECK static int encwrite(char *start, long size, int outfd)
     ur_srandom((unsigned) time(NULL));	/* Build a random seed */
     seed = (ur_random() & 0x7fff);
 
-    putword(seed, outfd);	/* Write the random seed */
-    putword(size, outfd);	/* Write the file length */
+    if (putword(seed, outfd) != sizeof(struct wb) ||   /* the random seed */
+	putword(size, outfd) != sizeof(struct wb))     /* the file length */
+	return(0);
 
     /* Now checksum, encrypt, and write out the buffer. */
 
@@ -430,9 +438,7 @@ NOCHECK static int encwrite(char *start, long size, int outfd)
 	size -= cnt;
     }
 
-    putword(cksum, outfd);	/* Write out the checksum */
-
-    return (1);
+    return(putword(cksum, outfd) == sizeof(struct wb)); /* the checksum */
 }
 
 /*****************************************************************
