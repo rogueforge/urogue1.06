@@ -171,7 +171,7 @@ look(int             wakeup)
 			tp->t_oldch = (trp->tr_flags & ISFOUND) ? tp->t_oldch
 			    : trp->tr_show;
 		    }
-		    if (tp->t_oldch == FLOOR &&
+		    if (tp->t_oldch == FLOOR && rp != NULL &&
 			(rp->r_flags & ISDARK)
 			&& !(rp->r_flags & HASFIRE) &&
 			off(player, ISBLIND))
@@ -278,6 +278,7 @@ look(int             wakeup)
      */
 
     if (do_light && wakeup &&	/* wakeup will be true on a normal move */
+	rp != NULL &&
 	!(rp->r_flags & ISDARK) &&	/* We have some light */
 	!ce(hero, player.t_oldpos))	/* Don't do anything if we didn't
 					 * move */
