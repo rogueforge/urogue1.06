@@ -1106,10 +1106,14 @@ void check_level(void)
 
     learn_new_spells();
 
-    /* Create a more powerful familiar (if player has one) */
+    /*
+     * Create a more powerful familiar (if player has one) when the
+     * player next moves: the old one may be in the middle of its own
+     * move, having made the kill that brought the player up a level.
+     */
 
     if (on(player, HASFAMILIAR) && on(player, CANSUMMON))
-	summon_monster((short) 0, FAMILIAR, NOMESSAGE);
+	fam_upgrade = TRUE;
 }
 
 /*

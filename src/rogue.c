@@ -19,6 +19,7 @@ struct object *cur_shoes = NULL;
 struct object *cur_hat = NULL;
 struct object *cur_charm = NULL;	/* Currently charmed monsters */
 struct linked_list *fam_ptr = NULL;	/* A ptr to the familiar */
+int             fam_upgrade = FALSE;	/* a stronger familiar is due */
 struct linked_list *lvl_obj = NULL; 	/* Treasure on this level */
 struct linked_list *mlist = NULL;	/* Monsters on this level */
 struct linked_list *curr_mons = NULL;	/* The mons. currently moving */
