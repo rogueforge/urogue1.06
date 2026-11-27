@@ -141,6 +141,11 @@ void _free_list(linked_list **ptr)
 
 void discard(struct linked_list *item)
 {
+    if (item == fam_ptr) {	/* the player's familiar is gone */
+	turn_off(player, HASFAMILIAR);
+	fam_ptr = NULL;
+    }
+
     throw_away(item->data.obj);
     ur_free(item);
 }
