@@ -1698,10 +1698,12 @@ killed(struct thing *killer, struct linked_list *item, int print_message, int gi
 
     debug("Removing %s", monsters[tp->t_index].m_name);
 
-    if (killer != NULL && item == fam_ptr) {	/* The player's familiar died */
+    if (item == fam_ptr) {	/* The player's familiar died */
 	turn_off(player, HASFAMILIAR);
 	fam_ptr = NULL;
-	msg("An incredible wave of sadness sweeps over you.");
+
+	if (killer != NULL)
+	    msg("An incredible wave of sadness sweeps over you.");
     }
 
     if (is_player) {

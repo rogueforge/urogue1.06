@@ -93,7 +93,9 @@ struct linked_list *summon_monster(short type, int familiar, int print_message)
 		}
 	    }
 	    fpack = NULL;
-	    killed(NULL, fam_ptr, NOMESSAGE, NOPOINTS);
+	    item = fam_ptr;
+	    fam_ptr = NULL;
+	    killed(NULL, item, NOMESSAGE, NOPOINTS);
 	}
 	fam_ptr = mp;
 	fam_type = monster;
