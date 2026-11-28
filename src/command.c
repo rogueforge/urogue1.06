@@ -1255,7 +1255,9 @@ void
 u_level(void)
 {
     char            ch;
-    if (has_artifact && ((ch = mvinch(hero.y, hero.x)) == STAIRS ||
+
+    ch = mvinch(hero.y, hero.x);
+    if (has_artifact && (ch == STAIRS ||
 			 (on(player, CANINWALL)
 		    && (is_wearing(R_LEVITATION) || on(player, CANFLY))))) {
 	if (--level == 0)
